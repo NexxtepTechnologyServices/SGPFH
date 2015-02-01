@@ -1,0 +1,60 @@
+<section id="internal-page" class="col-xs-10">
+
+<h1>Medbank Patient Referrals<%= link_to 'New Referral', new_referral_path, :class => "btn btn-success", :style => "margin-left:35px;" %></h1>
+<form>
+	<input type="text" name="query" placeholder="Search"/>
+	<input type="submit" class="btn btn-primary" value="Search">
+	<%= link_to "Clear", referrals_path, :class => "btn btn-warning" %>
+</form>
+
+<% @referrals.each do |referral| %>
+  <div class="col-xs-12 referral" id="referral_<%= referral.id %>">
+  	<div class="col-xs-6">
+	    Patient:  <strong><%= referral.name %></strong><br/>
+	    Created On: <%= referral.created_at.to_formatted_s(:dob) %><br/>
+    </div>
+    <div class="col-xs-6">
+    <div><strong>Application sent to Patient: </strong> <% unless referral.app_sent %>
+	    <%= check_box_tag "app_sent", referral.id, false, :class => "app_sent_checkbox" %>
+	<% else %>
+		<span><%= referral.app_sent.to_formatted_s(:ld) %></span>
+	<% end %>
+	</div>
+	<a href="<%= referral_path(referral) %>" title="View Referral"><i class="icon-info-circled"></i></a>
+	<a href="<%= edit_referral_path(referral) %>" title="Edit Referral"><i class="icon-edit"></i></a>
+	<a href="#" title="Remove Referral" class="remove_referral" data-value="<%= referral.id %>"><i class="icon-cancel-circled"></i></a>
+    </div>
+  </div>
+<% end %>
+</section>
+<div class="clear"></div>
+
+<script>
+	$(document).ready(function(){
+		$(".app_sent_checkbox").change(function(){
+			var me = this;
+			$.post("/update_app_sent/"+$(me).val(), null, function(data){
+				var p = $(me).parent();
+				$(me).remove();
+				var d = new Date(data.app_sent);
+				$("<span/>", { html: d.toLocaleDateString() }).appendTo(p);
+			},"json");
+		});
+
+		$(".remove_referral").click(function(){
+			var me = this;
+			var id = me.dataset.value;
+			var b = confirm("Are your sure you want to remove this MedBank Patient?\n This Action cannot be undone!");
+			if(b){
+				$.ajax({
+					url: "/referrals/"+id+".json",
+					type: 'DELETE',
+					success: function(data){
+						$("#referral_"+data.id).remove();
+					}
+				});
+			}
+		});
+	});
+</script>
+

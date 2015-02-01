@@ -1,0 +1,15 @@
+<% unless award.approvals.empty? %>
+	<% award.approvals.each_with_index do |a, i| %>
+	<tr style="<%= "border-top:1px solid #ddd;" if i == 0 %>" >
+		<td class="sub_award"></td>
+		<td class="sub_award"><%= "<strong>Approved By:</stong> ".html_safe if i == 0 %></td>
+		<td class="sub_award"><%= a.affiliate.name %></td>
+		<td class="sub_award">approved on <%= a.created_at.to_formatted_s(:ld) %></td>
+		<td class="sub_award">via <%= a.approval_method %></td>
+	</tr>
+	<% end %>
+<% else %>
+	<tr style="border-top:1px solid #ddd;"><td class="sub_award"><strong>No Current Approvals</strong></td></tr>
+<% end %>
+
+

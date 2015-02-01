@@ -1,0 +1,9 @@
+<div class="program_nav text-right">
+	<ul class="list-inline">
+		<% sections.each do |s| %>
+			<li style="padding: 0 15px;">
+				<%= link_to s[:display], "##{s[:link]}" %>
+			</li>
+		<% end %>
+	</ul>
+</div>

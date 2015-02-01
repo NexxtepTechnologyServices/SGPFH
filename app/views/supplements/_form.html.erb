@@ -1,0 +1,73 @@
+<%= bootstrap_form_for(@supplement) do |f| %>
+  <div id="supplement_form" class="award_subtype_form">
+    <div class="form-inputs col-xs-12 ref_med_form">
+      <%= f.hidden_field :award_id %>
+      <%= f.text_field :name, :label => "Name" %>
+      <%= f.text_field :unit_cost, :label => "Unit $" %>
+      <%= f.text_field :quantity, :label => "Qty.", :onblur => 'calcTotal(this)' %>
+      <%= f.text_field :total_cost, :label => "Total", :onblur => 'newDrug(this)', :class => "item_total_field" %>
+      <%= f.hidden_field :ui_id, :value => 0 %>
+    </div>
+  </div>
+<% end %>
+
+<script>
+sObj = new Array();
+function calcTotal(e){
+  var p = $(e).parent().parent();
+  var price = parseFloat(p.find("#supplement_unit_cost").val());
+  var qty = parseInt(p.find("#supplement_quantity").val());
+  p.find("#supplement_total_cost").val((price * qty).toFixed(2));
+}
+function newDrug(e){
+    var p = $(e).parent().parent();
+    var data = {};
+    data.supplement = {};
+    data.supplement.name = p.find("#supplement_name").val();
+    data.supplement.unit_cost = p.find("#supplement_unit_cost").val();
+    data.supplement.quantity = p.find("#supplement_quantity").val();
+    data.supplement.total_cost = p.find("#supplement_total_cost").val();
+    data.supplement.id = (p.find("#supplement_id").val() != "") ? p.find("#supplement_id").val() : undefined;
+    sObj.push(data);  
+      var inputs = $("#supplement_form .form-inputs:last").clone();
+      $("#supplement_form .form-inputs:last #supplement_total_cost").removeAttr("onblur");
+      $("<img/>",{
+        "src": "/images/removeRow.png",
+        "class": "remove_row",
+        "onclick": "removeRow(this)"
+      }).appendTo("#supplement_form .form-inputs:last");
+      $("#supplement_form .form-inputs:last #supplement_id").val(data.id);
+      inputs.find("input").each(function(){ $(this).val(""); });
+      inputs.find("input#supplement_ui_id").val(sObj.length);
+      inputs.find("label").hide();
+      inputs.appendTo("#supplement_form");
+  }
+  function removeRow(e){
+    var r = $(e).parent().remove();
+    var i = r.find("input#supplement_ui_id").val();
+    delete sObj[i];
+    updateTotal();
+    if(!$("#supplement_form .form-inputs:first label").is(":visible")){
+      $("#supplement_form .form-inputs:first label").show();
+    }
+  }
+  </script>
+
+
+
+
+<!--<%#= simple_form_for(@supplement) do |f| %>
+  <%#= f.error_notification %>
+
+  <div class="form-inputs">
+    <%#= f.input :award_id %>
+    <%#= f.input :name %>
+    <%#= f.input :unit_cost %>
+    <%#= f.input :quantity %>
+    <%#= f.input :total_cost %>
+  </div>
+
+  <div class="form-actions">
+    <%#= f.button :submit %>
+  </div>
+<%# end %>-->

@@ -1,0 +1,33 @@
+<section id="homeFlex">
+			<div class="flexslider flexFullScreen" >
+				<ul class="slides sliderWrapper">
+					<% slider_data.each_with_index do |s,i| %>
+					<li class="slideN<%= i %>">
+						<%= image_tag s.image.url, :alt => s.image_alt, :class => "slider-image" %>
+						<div class="caption right">
+							<% unless s.text1.nil? %>
+							<div class="element1-1" data-animation="fadeInRightBig">
+								<%= s.text1.html_safe %>
+							</div>
+							<% end %>
+							<% unless s.text2.nil? %>
+							<div class="element1-2" data-animation="fadeInRightBig">
+								<%= s.text2.html_safe %>
+							</div>
+							<% end %>
+							<% unless s.text3.nil? %>
+							<div class="element1-3  hidden-xs" data-animation="fadeInRightBig">
+								<%= s.text3.html_safe %>
+							</div>
+							<% end %>
+							<% unless s.text4.nil? %>
+							<div class="element1-4" data-animation="fadeInRightBig">
+							<%= s.text4.html_safe %>
+							</div>
+							<% end %>
+						</div>
+					</li>
+					<% end %>
+				</ul>				
+			</div>
+		</section>

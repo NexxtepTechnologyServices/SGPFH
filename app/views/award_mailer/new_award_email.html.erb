@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>A New award was create for <%= @award.patient.name %></h1>
+    <p>
+      Total Requested: <%= number_to_currency(@award.total_granted) %>
+    </p>
+    
+    <p>
+      Please click here to approve this award for this patient <br/>
+      <%= link_to "Approve Award", approve_email_path(hash: @hash, award: @award) %>
+    </p>
+
+  </body>
+</html>

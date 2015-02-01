@@ -1,0 +1,30 @@
+<%= render :partial => 'program_nav', :locals => { :sections => [
+		{link: 'overview', display: 'Overview'},
+		{link: 'health_screening', display: 'Health Screening'},
+		{link: 'health_risk_appraisal', display: 'Health Risk Appraisal'}
+	] 
+} %>
+<div class="logo-container">
+	<%= image_tag "DM_logo.png", :class => "col-sm-8 program-logo other-logo" %>
+  	<div class="logo-background"></div>
+</div>
+<%= render :partial => 'common/sections/flexSlider', :locals => { :slider_data => @sliders} %>
+<div class="program">
+<a class="anchor-links" name="overview"></a><h2 class="col-sm-12 headline">Overview</h2>
+<p>Partnership Wellness Disease Management provides in-person disease management and wellness programs for employers who are self-insured. Our staff members meet personally with each employee to assist them in the management of their chronic disease, compliance with physician orders and navigation of the health care system.</p>
+
+<a class="anchor-links" name="health_screening"></a><h2 class="col-sm-12 headline">Health Screening</h2>
+<ul>
+<li>Total Cholesterol and blood sugar</li>
+<li>Full lipid profiles and blood sugar</li>
+<li>Blood pressure</li>
+<li>Body mass index</li>
+<li>Height, weight and waist girth</li>
+</ul>
+
+<a class="anchor-links" name="health_risk_appraisal"></a><h2 class="col-sm-12 headline">Health Risk Appraisal</h2>
+
+<p>In addition we offer Biosignia's health risk appraisal, Know Your Number®, which was designed to address the need for multi-dimensional chronic disease risk prediction in a diverse world. Using a clinically-based engine, Know Your Number generates best-in-class reports featuring easy-to-interpret, actionable, disease-specific information at both the individual and aggregate level.</p>
+
+<p>What makes Know Your Number® different from traditional Health Risk Assessment tools? Traditional health risk assessment (HRA) tools are mortality-based and non-disease specific, which makes them less useful in identifying disease risk and prediction of medical cost. A typical HRA uses a method of debit/credit or risk counting to generate an arbitrary scale score or health quotient from crude risk factor measures such as data from a self-reported questionnaire. Know Your Number® uses a patented and revolutionary morbidity-based and mortality-based modeling method called Synthesis Analysis which very accurately predicts one's risk of not only death due to but also onset of and complications from specific chronic diseases. Because of Synthesis Analysis, Know Your Number can quantify the amount individual risk factors are actually contributing to someone's total disease-specific risk. This information can be carried further to identify the amount of risk which is modifiable, absolute, and even optimally achievable, allowing for the most targeted medical management possible.</p>
+</div>

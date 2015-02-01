@@ -1,0 +1,7 @@
+<h1>Medication Information</h1>
+<p>
+	Patient: <%= @referral.name %>&nbsp;&nbsp; DOB: <%= @referral.date_of_birth.to_formatted_s(:dob) %>
+</p>
+<%= render 'form' %>
+
+<%= link_to 'Back', ref_meds_path %>

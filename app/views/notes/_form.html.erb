@@ -1,0 +1,10 @@
+<%= bootstrap_form_for(@note) do |f| %>
+  <div class="form-inputs">
+    <%= f.text_area :content %>
+    <%= f.hidden_field :referral_id %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

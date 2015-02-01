@@ -1,0 +1,148 @@
+<p id="notice"><%= notice %></p>
+
+<div class="col-xs-12 referral_detail">
+  <div class="col-md-6 col-xs-12">
+    <h3>
+    <%= @referral.prefix %>. <%= @referral.firstname %> <%= @referral.middlename %> <%= @referral.lastname %>
+    <a href="#" title="Print Referral"><i class="icon-print"></i></a>
+    <a href="<%= edit_referral_path(@referral) %>" title="Edit Referral"><i class="icon-edit"></i></a>
+    <!--<a href="javascript:confirm('Are you sure?')" title="Remove Referral"><i class="icon-cancel-circled"></i></a>-->
+    <%= link_to @referral, method: :delete, confirm: "Are you Sure" do %> 
+      <i class="icon-cancel-circled"></i>
+    <% end %>
+    </h3>
+    <%#= @referral.id_num %>
+    <strong>Email:</strong> <%= mail_to @referral.advocate_email %><br/>
+    <strong>Date of Birth:</strong> <%= @referral.date_of_birth.to_formatted_s(:dob) %><br/>
+    <strong>Address:</strong>
+    <div class="address_div">
+      <%= @referral.address %><br/><%= "#{@referral.city}, #{@referral.state}  #{@referral.zip}" %>
+    </div><br/>
+    <strong>Referring physician:</strong> <%= @doctor.name %><br/>
+    <strong>Home phone:</strong> <%= @referral.home_phone %><br/>
+    <strong>Work phone:</strong> <%= @referral.work_phone %><br/>
+    <strong>Contact:</strong> <%= "#{@referral.contact_name} (#{@referral.contact_phone})" %>
+  </div>
+  <div class="col-md-6 col-xs-12">
+    <div style="height:25px;">
+      <% if @referral.app_sent.present? %>
+        <span class=""><i class="text-success icon-check"></i>Application sent on <strong><%= @referral.app_sent.to_formatted_s(:ld) %></strong> by <%= mail_to @user.email %></span>
+      <% end %>
+    </div>
+    <h4>Personal Information</h4>
+    <strong>Gender:</strong> <%= @referral.gender %><br/>
+    <strong>Married:</strong> <%= @referral.married %><br/>
+    <strong>Employed:</strong> <%= @referral.employed %><br/>
+    <strong>Citizen:</strong> <%= @referral.citizen %><br/>
+  </div>
+  <div class="col-md-6 col-xs-12">
+    <h4>Financial Information</h4>
+    <strong>Household size:</strong> <%= @referral.household_size %><br/>
+    <strong>Income:</strong> <%= @referral.income %><br/>
+    <strong>Income sources:</strong> <%= @referral.income_sources %>
+  </div>
+</div>
+
+<div class="col-xs-12 referral_detail">
+  <h4>Medication Information<a href="<%= new_ref_med_path(:referral_id => @referral.id) %>" style="margin-left:5px;" title="Add New Medication"><i class="icon-plus-circled iconSmall" style="vertical-align:top;"></i></a></h4>
+  <% if @referral.ref_meds.blank? %>
+    <p>No Medications entered for this Referral</p>
+  <% else %>
+  <table class="table">
+    <tr>
+      <th>Drug</th>
+      <th>ICD-9</th>
+      <th>Diagnosis</th>
+      <th>Dosage</th>
+      <th>Sig</th>
+      <th>Dispense</th>
+      <th>Refills</th>
+      <th></th>
+    </tr>
+  <% @referral.ref_meds.order(:created_at).each do |med| %>
+    <tr id="<%= med.id %>">
+      <td><%= med.drug %></td>
+      <td><%= med.icd9 %></td>
+      <td><%= med.diagnosis %></td>
+      <td><%= med.doscage %></td>
+      <td><%= med.sig %></td>
+      <td><%= med.dispense %></td>
+      <td><%= med.refills %></td>
+      <td>
+        <a href="javascript:void(0)" onclick="show_edit(<%= med.id %>)" title="Edit Medication"><i class="icon-edit"></i></a>
+        <!--<a href="<%= ref_med_path(med) %>" title="Delete Medication" data-method="delete"><i class="icon-cancel-circled"></i></a>-->
+        <%= link_to med, method: :delete, confirm: 'Are You Sure?', :remote => true do %>
+          <i class="icon-cancel-circled"></i>
+        <% end %>
+      </td>
+    </tr>
+    <tr id="<%= med.id %>_edit" style="display:none;" class="inline_med_edit">
+      <td><%= text_field_tag "drug", med.drug, :class => "form-control", :wrapper => "form-group" %></td>
+      <td><%= text_field_tag "icd9", med.icd9, :class => "form-control", :wrapper => "form-group" %></td>
+      <td><%= text_field_tag "diagnosis", med.diagnosis, :class => "form-control", :wrapper => "form-group" %></td>
+      <td><%= text_field_tag "doscage", med.doscage, :class => "form-control", :wrapper => "form-group" %></td>
+      <td><%= text_field_tag "sig", med.sig, :class => "form-control", :wrapper => "form-group" %></td>
+      <td><%= text_field_tag "dispense", med.dispense, :class => "form-control", :wrapper => "form-group" %></td>
+      <td><%= text_field_tag "refills", med.refills, :class => "form-control", :wrapper => "form-group" %></td>
+      <td>
+        <a href="javascript:void(0)" onclick="hide_edit(<%= med.id %>)" title="Save Medication"><i class="icon-check" style="color:green;"></i></a>
+        <a href="javascript:void(0)" onclick="hide_edit(<%= med.id %>,false)" title="Cancel"><i class="icon-cancel-circled" style="color:red;"></i></a>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+  <% end %>
+</div>
+<div class="col-xs-12 referral_detail">
+  <h4>Notes<a href="<%= new_note_path %>" style="margin-left:5px;" title="Add New Note"><i class="icon-plus-circled iconSmall" style="vertical-align:top;"></i></a></h4>
+  <% if @referral.notes.blank? %>
+    <p>No Notes entered for this Referral</p>
+  <% else %>
+    <% @referral.notes.each do |n| %>
+      <div class="col-md-3 col-xs-12 note">
+        <%= n.created_at.to_formatted_s(:ld) %><br/>
+        <%= n.content %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<%= link_to 'Edit', edit_referral_path(@referral) %> 
+<%= link_to 'Back', referrals_path %>
+
+<script>
+  function show_edit(id){
+    $("tr#"+id).hide();
+    $("tr#"+id+"_edit").show();
+  }
+  function hide_edit(id, cancel=true){
+    if(cancel == false){
+      $("tr#"+id+"_edit").hide();
+      $("tr#"+id).show();  
+      return;
+    }
+    var data = {};
+    data.ref_med = {};
+    data.ref_med.id = id;
+    $("tr#"+id+"_edit td input").each(function(){
+      var val = $(this).val();
+      console.log(this.id + " = " + val);
+      data.ref_med[this.id] = val;
+    });
+    $.post("/ref_meds", data, function(data){
+      var dtr = $("tr#"+id+" td");
+      $(dtr[0]).html(data.drug);
+      $(dtr[1]).html(data.icd9);
+      $(dtr[2]).html(data.diagnosis);
+      $(dtr[3]).html(data.doscage);
+      $(dtr[4]).html(data.sig);
+      $(dtr[5]).html(data.dispense);
+      $(dtr[6]).html(data.refills);
+    }, "json");
+    $("tr#"+id+"_edit").hide();
+    $("tr#"+id).show();
+    
+
+  }
+
+</script>

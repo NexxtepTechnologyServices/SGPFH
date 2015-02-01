@@ -1,0 +1,39 @@
+<h1>Listing ref_meds</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Drug</th>
+      <th>Icd9</th>
+      <th>Diagnosis</th>
+      <th>Doscage</th>
+      <th>Sig</th>
+      <th>Dispense</th>
+      <th>Refills</th>
+      <th>Referral</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ref_meds.each do |ref_med| %>
+      <tr>
+        <td><%= ref_med.drug %></td>
+        <td><%= ref_med.icd9 %></td>
+        <td><%= ref_med.diagnosis %></td>
+        <td><%= ref_med.doscage %></td>
+        <td><%= ref_med.sig %></td>
+        <td><%= ref_med.dispense %></td>
+        <td><%= ref_med.refills %></td>
+        <td><%= ref_med.referral_id %></td>
+        <td><%= link_to 'Show', ref_med %></td>
+        <td><%= link_to 'Edit', edit_ref_med_path(ref_med) %></td>
+        <td><%= link_to 'Destroy', ref_med, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ref med', new_ref_med_path %>

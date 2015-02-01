@@ -1,0 +1,42 @@
+<section id="internal-page" class="col-xs-10">
+
+<h1>Listing patients<%= link_to 'New Patient', new_patient_path, :class => "btn btn-success", :style => "margin-left:35px;" %></h1>
+<form>
+  <input type="text" name="query" placeholder="Search"/>
+  <input type="submit" class="btn btn-primary" value="Search">
+  <%= link_to "Clear", patients_path, :class => "btn btn-warning" %>
+</form>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Date Of Birth</th>
+      <th>Date Entered</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @patients.each do |patient| %>
+      <tr>
+        <td><%= link_to patient.name, patient_path(patient) %></td>
+        <td><%= patient.birthday.to_formatted_s(:dob) %></td>
+        <td><%= patient.created_at.to_formatted_s(:ld) %></td>
+        <td>
+          <a href="<%= patient_path(patient) %>" title="View Patient">
+            <i class="icon-info-circled"></i>
+          </a>
+          <a href="<%= edit_patient_path(patient) %>" title="Edit Patient">
+            <i class="icon-edit"></i>
+          </a>
+          <a href="javascript:confirm('Are you sure?')" title="Remove Patient">
+            <i class="icon-cancel-circled"></i>
+          </a>
+      </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

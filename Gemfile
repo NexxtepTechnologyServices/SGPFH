@@ -14,6 +14,11 @@ gem 'devise'
 gem 'pg'
 gem 'puma'
 gem 'simple_form'
+gem 'bootstrap_form'
+gem 'tire'
+gem 'bootstrap-datepicker-rails'
+gem 'carrierwave'
+gem 'activeadmin', github: 'activeadmin'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]

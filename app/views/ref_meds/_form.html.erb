@@ -1,0 +1,61 @@
+
+<%= bootstrap_form_for(@ref_med) do |f| %>
+  <%#= f.error_notification %>
+<div id="drug_form">
+  <div class="form-inputs col-xs-12 ref_med_form">
+    
+    <%= f.text_field :drug %>
+    <%= f.text_field :icd9 %>
+    <%= f.text_field :diagnosis %>
+    <%= f.text_field :doscage %>
+    <%= f.text_field :sig %>
+    <%= f.text_field :dispense %>
+    <%= f.text_field :refills, :onblur => 'newDrug(this)' %>
+    <%= f.hidden_field :id %>
+    <%= f.hidden_field :referral_id %>
+  </div>
+</div>
+  <div class="form-actions">
+    <% submit_text = (params[:action] == 'create') ? "Add Insurance Information" : "Update" %>
+    <%= f.submit submit_text, :class => "btn btn-danger" %>&nbsp;&nbsp;<%= link_to "Cancel", referral_path(@ref_med.referral) %>
+  </div>
+<% end %>
+
+<script>
+  function newDrug(e){
+    var p = $(e).parent().parent();
+    var referral_id = 
+    var data = {};
+    data.ref_med = {};
+    data.ref_med.drug = p.find("#ref_med_drug").val();
+    data.ref_med.icd9 = p.find("#ref_med_icd9").val();
+    data.ref_med.diagnosis = p.find("#ref_med_diagnosis").val();
+    data.ref_med.doscage = p.find("#ref_med_doscage").val();
+    data.ref_med.sig = p.find("#ref_med_sig").val();
+    data.ref_med.dispense = p.find("#ref_med_dispense").val();
+    data.ref_med.refills = p.find("#ref_med_refills").val();
+    data.ref_med.referral_id = p.find("#red_med_referral_id").val();
+    data.ref_med.id = (p.find("#ref_med_id").val() != "") ? p.find("#ref_med_id").val() : undefined;
+    $.post("/ref_meds", data, function(data){
+      var inputs = $("#drug_form .form-inputs:last").clone();
+      $("#drug_form .form-inputs:last #ref_med_refills").removeAttr("onblur");
+      $("<img/>",{
+        "src": "/images/removeRow.png",
+        "class": "remove_row",
+        "onclick": "removeRow(this)"
+      }).appendTo("#drug_form .form-inputs:last");
+      $("#drug_form .form-inputs:last #ref_med_id").val(data.id);
+      $("#drug_form .form-inputs:last #ref_med_referral_id").val(data.);
+      inputs.find("input").each(function(){ $(this).val(""); });
+      inputs.find("label").hide();
+      inputs.appendTo("#drug_form");
+    }, "json");
+  }
+  function removeRow(e){
+    $(e).parent().remove();
+    if(!$("#drug_form .form-inputs:first label").is(":visible")){
+      $("#drug_form .form-inputs:first label").show();
+    }
+  }
+
+</script>

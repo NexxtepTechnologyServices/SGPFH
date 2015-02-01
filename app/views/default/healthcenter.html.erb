@@ -1,0 +1,96 @@
+<%= render :partial => 'program_nav', :locals => { :sections => [
+		{link: 'overview', display: 'Overview'},
+		{link: 'hours', display: 'Hours'},
+		{link: 'partnership_health_center_staff', display: 'Staff'},
+		{link: 'partnership_health_center_advisory_board', display: 'Advisory Board'},
+		{link: 'services', display: 'Services'},
+		{link: 'eligibility', display: 'Eligibility'},
+		{link: 'volunteers', display: 'Volunteers'}
+	] 
+} %>
+<div class="logo-container">
+	<%= image_tag "PHC_logo.png", :class => "col-sm-8 program-logo other-logo" %>
+  	<div class="logo-background"></div>
+</div>
+<%= render :partial => 'common/sections/flexSlider', :locals => { :slider_data => @sliders} %>
+<div class="program">
+<a class="anchor-links" name="overview"></a><h2 class="col-sm-12 headline">Overview</h2>
+<p>The Partnership Health Center is a free primary healthcare facility staffed by volunteer physicians, nurse practitioners, physician extenders, nurses and administrative staff who serve the healthcare needs of the working uninsured in Lowndes County. Services include non-emergency healthcare and referrals to specialists and labs. Proof of eligibility is required.</p>
+
+<p>The facility is located at 205 Woodrow Wilson Dr. in Valdosta, GA. Funding for the clinic is provided by donations and grants. </p>
+
+<a class="anchor-links" name="hours"></a><h2 class="col-sm-12 headline">Clinic Hours</h2>
+<p>Please call for an appointment at 229-245-0020</p>
+
+
+
+<a class="anchor-links" name="partnership_health_center_staff"></a><h2 class="col-sm-12 headline">Partnership Health Center Staff</h2>  <!--[need ability to change names]-->
+<ul>
+<li>Dr. William Grow - Medical Director</li>
+<li>Dr. Leon Meeks - Medical Director</li>
+<li>John Sparks - Executive Director</li>
+<li>Carol Morgan - Patient Services Coordinator</li>
+<li>Dr. Seth Berl - Internist</li>
+<li>Dr. Denise Atkinson – Nurse Practitioner</li>
+<li>Fran Youmans - Nurse Practitioner</li>
+<li>Janie McGhin – Nurse Practitioner</li>
+<li>Lisa DeLargy - Nurse</li>
+<li>Michelle Blankenship - Nurse</li>
+<li>Nancy Dickinson - Medbank</li>
+<li>Kathy Powers – Clerical</li>
+<li>Reatha Pavey - Clerical</li>
+</ul>
+
+<a class="anchor-links" name="partnership_health_center_advisory_board"></a><h2 class="col-sm-12 headline">Partnership Health Center Advisory Board</h2> <!--[need ability to change names]-->
+<ul>
+<li>Laura Fiveash – Chair, Director of Cardiology Services, South Georgia Medical Center</li>
+<li>Dr. Bill Gee </li>
+<li>Dr. Sheri Noviello – Interim Dean of the College of Nursing, Valdosta State University</li>
+<li>Dr. William Grow - Medical Director South Health District</li>
+<li>Ms. Donna Nolan, RN</li>
+<li>Ms. Elsie Napier, APRN</li>
+<li>Ms. Susan Ring, RN</li>
+<li>Dr. Diane Halim, VSU Social Work Professor</li>
+<li>Dr. Leon Meeks - Medical Director</li>
+<li>Ms. Gloria Hicks, RN</li>
+<li>Ms. Jane Osborn, MSW</li>
+<li>Ms. Joyce Evans, Lowndes County Commission</li>
+<li>Ms. Marty Giddings</li>
+<li>Ms. Nancy Dickinson</li>
+<li>Ms. Nancy Redfern-Vance</li>
+<li>Ms. Pam Cartwright, South Georgia Medical Center</li>
+</ul>
+
+<a class="anchor-links" name="services"></a><h2 class="col-sm-12 headline">Services</h2>
+<ul>
+<li>Primary Medical Care</li>
+<li>Referral to specialists and labs</li>
+<li>Pharmacy Assistance Program</li>
+<li>Specialty Clinics</li>
+</ul>
+
+<a class="anchor-links" name="eligibility"></a><h2 class="col-sm-12 headline">Eligibility</h2>
+<ul>
+<li>Employed full or part time</li>
+<li>Resident of Lowndes County</li>
+<li>Age 18-64</li>
+<li>Earn less than 200% of the federal poverty level</li>
+<li>The non-working dependent of a working family member. Must be age18 and above.</li>
+</ul>
+
+<a class="anchor-links" name="volunteers"></a><h2 class="col-sm-12 headline">Volunteers </h2>
+<p>The Partnership Health Center is staffed by Volunteer Physicians, Physician Extenders, Nurse Practitioners and Registered Nurses who tirelessly serve our patients to improve the health of the community. Volunteers are needed in the following areas:</p>
+<br/>
+<p>Medical<br/>
+Physicians<br/>
+Nurse Practitioners<br/>
+PA’s<br/>
+Nurses - RNs<br/>
+Nurses - LPNs<br/>
+Pharmacists</p>
+<br/>
+<p>Non-Medical<br/>
+Clerical/administrative<br/>
+Electronic Medical Records Scribe<br/>
+Cleaning/Janitorial</p>
+</div>

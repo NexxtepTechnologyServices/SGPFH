@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Patient:</strong>
+  <%= @award.patient_id %>
+</p>
+
+<p>
+  <strong>Award type:</strong>
+  <%= @award.award_type %>
+</p>
+
+<p>
+  <strong>Total requested:</strong>
+  <%= @award.total_requested %>
+</p>
+
+<p>
+  <strong>Total granted:</strong>
+  <%= @award.total_granted %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @award.description %>
+</p>
+
+<%= link_to 'Edit', edit_award_path(@award) %> |
+<%= link_to 'Back', awards_path %>

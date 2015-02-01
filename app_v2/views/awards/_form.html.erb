@@ -1,0 +1,36 @@
+<script src="https://github.com/douglascrockford/JSON-js"></script>
+<%= bootstrap_form_for(@award) do |f| %>
+  <%= f.hidden_field :patient_id, :value => @patient.id %>
+  <div class="form-inputs">
+    <span class="award_types">
+      <%= f.radio_button :award_type, "1", label: "Transporation", :onclick => "showAwardTypeForm(1)" %>
+      <%= f.radio_button :award_type, "2", label: "Medication - Symptom Control Only", :onclick => "showAwardTypeForm(2)" %>
+      <%= f.radio_button :award_type, "3", label: "Medical Equipment", :onclick => "showAwardTypeForm(3)" %>
+      <%= f.radio_button :award_type, "4", label: "Nutritional Supplements", :onclick => "showAwardTypeForm(4)" %>
+      <%#= f.radio_button :award_type, "5", label: "Other", :onclick => "showAwardTypeForm(5)" %>
+    </span>
+    <div id="award_type_div"></div>
+    <div style="clear:both;"></div>
+    <%#= f.text_area :description %>
+    <%= f.text_field :vendor, label: "Preferred Vendor" %>
+    <%= f.text_field :total_requested %>
+    <%#= f.text_field :total_granted %>
+    <%= hidden_field_tag "json_string" %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit :submit, :onClick => "fillJsonString()" %>
+  </div>
+<% end %>
+
+<script>
+  function showAwardTypeForm(type){
+    $.get("/get_award_form/"+type, function(data){
+      $("#award_type_div").html(data);
+    });
+  } 
+  function fillJsonString(){
+    $("#json_string").val(JSON.stringify(sObj));
+  }
+
+</script>

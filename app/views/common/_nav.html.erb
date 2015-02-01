@@ -1,0 +1,111 @@
+<nav class="navbar navbar-default scrollMenu" role="navigation">
+						<div class="signin-singout">
+						<% if user_signed_in? %>
+							<%= current_user.email %>&nbsp;|&nbsp;<%= link_to 'Sign out', destroy_user_session_path, :class => "btn btn-primary" %>
+						<% else %>
+								<%= link_to 'Sign In', '/users/sign_in', :class => "btn btn-primary" %>
+						<% end %>
+							<%= link_to 'Donate', '/#donations', :class => "btn btn-primary" %>
+						</div>
+						<div class="navbar-header">
+							<!-- responsive navigation -->
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+							<!-- Logo -->
+							<a class="navbar-brand" href="/"><img src="/images/SGPH_Logo_Final.png" alt="SEATTLE website template" class="<%= "homepage" if @isHomepage %>" /></a>
+						</div>
+						<div class="collapse navbar-collapse" id="mainMenu">
+							<!-- Main navigation -->
+							<ul class="nav navbar-nav pull-left">
+								<% if user_signed_in? %>
+									<li class="primary">
+										<a href="/" class="firstLevel <%= "active" if params[:controller] == 'default' %> hasSubMenu">Home</a>
+										<ul class="subMenu">	
+											<li class="primary"><a href="/about">About Us</a></li>
+											<li class="primary"><a href="/#services">Programs</a></li>
+											<li class="primary"><a href="/#team">Team</a></li>
+											<li class="primary"><a href="/#contact">Contact</a></li>
+										</ul>
+									</li>
+
+									<% unless current_user.affiliate? %>
+										<li class="sep"></li>
+										<li class="primary"> 
+											<a href="<%= referrals_path %>" class="firstLevel <%= "active" if params[:controller] == 'referrals' %> hasSubMenu" >MedBank</a>
+										</li>
+										<li class="sep"></li>
+										<li class="primary">
+											<a href="<%= patients_path %>" class="firstLevel <%= "active" if params[:controller] == 'patients' %> hasSubMenu">PCF</a>
+										</li>
+									<% end %>
+
+								<% else %>
+									<li class="primary nekoMegaMenuTrigger">
+										<a href="/" class="firstLevel <%= "active" if @isHomepage %> hasSubMenu">Home</a>
+									</li>
+								<li class="sep"></li>
+								<% end %>
+
+								<% unless user_signed_in? %>
+									<li class="primary nekoMegaMenuTrigger">
+										<a href="/about" class="firstLevel <%= "active" if params[:action] == 'about' %> hasSubmenu">About Us</a>
+									</li>
+									<li class="sep"></li>
+									<li class="primary"> 
+										<a href="/#services" class="firstLevel hasSubMenu" >Programs</a>
+										<ul class="subMenu">	
+											<li class="primary"><a href="/healthcenter">Partnership Health Center</a></li>
+											<li class="primary"><a href="/pcf">Partnership Cancer Fund</a></li>
+											<li class="primary"><a href="/wellness">Partnership Wellness &amp; Disease Management</a></li>
+											<li class="primary"><a href="/wellness">Connect South Georgia</a></li>
+										</ul>
+									</li>
+									<li class="sep"></li>
+									<li class="primary"> 
+										<a href="/#team" class="firstLevel hasSubMenu" >Team</a>
+									</li>
+								<% end %>
+
+								
+								<!--<li class="sep"></li>
+								<li class="primary">
+									<a href="#" class="firstLevel <%= "active" if params[:controller] == 'links' %> hasSubMenu">Links</a>
+								</li>
+								<li class="sep"></li>
+								<li class="primary">
+									<a href="#" class="firstLevel <%= "active" if params[:controller] == 'blogs' %> hasSubMenu">Blog</a>
+								</li>-->
+								<% if user_signed_in? && current_user.affiliate? %>
+									<li class="sep"></li>
+									<li class="primary">
+										<a href="<%= affiliate_approval_path %>" class="firstLevel <%= "active" if params[:controller] == 'awards' %>">Approval</a>
+								<% end %>
+								<% if current_user && current_user.administrator? %>
+									<li class="sep"></li>
+									<li class="primary">
+										<a href="<%= awards_path %>" class="firstLevel <%= "active" if params[:controller] == 'awards' %> hasSubMenu">Payments</a>
+									</li>
+									<li class="sep"></li>
+									<li class="primary">
+										<a href="#" class="firstLevel <%= "active" if params[:controller] == 'reports' %> hasSubMenu">Reports</a>
+									</li>
+									<li class="sep"></li>
+									<li class="primary">
+										<a href="/admin" class="firstLevel hasSubMenu">Admin</a>
+									</li>
+								<% end %>
+								<li class="sep"></li>
+								<li class="primary"> 
+									<a href="/#contact" class="firstLevel hasSubMenu" >Contact</a>
+								</li>
+								<!--<li class="sep"></li>
+								<li id="lastMenu" class="last"><a href="template-contact.html" class="firstLevel last">Contact</a></li>-->
+
+							</ul>
+							<!-- End main navigation -->
+						</div>
+					</nav>

@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Drug:</strong>
+  <%= @ref_med.drug %>
+</p>
+
+<p>
+  <strong>Icd9:</strong>
+  <%= @ref_med.icd9 %>
+</p>
+
+<p>
+  <strong>Diagnosis:</strong>
+  <%= @ref_med.diagnosis %>
+</p>
+
+<p>
+  <strong>Doscage:</strong>
+  <%= @ref_med.doscage %>
+</p>
+
+<p>
+  <strong>Sig:</strong>
+  <%= @ref_med.sig %>
+</p>
+
+<p>
+  <strong>Dispense:</strong>
+  <%= @ref_med.dispense %>
+</p>
+
+<p>
+  <strong>Refills:</strong>
+  <%= @ref_med.refills %>
+</p>
+
+<p>
+  <strong>Referral:</strong>
+  <%= @ref_med.referral_id %>
+</p>
+
+<%= link_to 'Edit', edit_ref_med_path(@ref_med) %> |
+<%= link_to 'Back', ref_meds_path %>

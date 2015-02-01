@@ -1,0 +1,90 @@
+
+<%= bootstrap_form_for(@referral) do |f| %>
+  <%#= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.form_group :class => "col-md-12" do %>
+    <%= f.text_field :advocate_email %>
+    <% end %>
+    <%= f.form_group :class => "col-md-6" do %>
+    <%= f.select :referring_physician_id, @doctors.collect { |d| [ d.name, d.id ] }, {include_blank: true} %>
+    <% end %>
+    <%= f.form_group :class => "col-md-6" do %>
+    <%= f.text_field :id_num %>
+    <% end %>
+    <%= f.form_group :class => "col-xs-1" do %>
+    <%= f.select :prefix, ["Mr.","Ms.", "Mrs.","Dr."] %>
+    <% end %>
+    <%= f.form_group :class => "col-md-5" do %>
+    <%= f.text_field :firstname %>
+    <% end %>
+    <%= f.form_group :class => "col-md-1" do %>
+    <%= f.text_field :middlename %>
+    <% end %>
+    <%= f.form_group :class => "col-md-5" do %>
+    <%= f.text_field :lastname %>
+    <% end %>
+    <%= f.form_group :class => "col-md-6" do %>
+    <%= f.text_field :address %>
+    <% end %>
+    <%= f.form_group :class => "col-md-6" do %>
+    <%= f.date_field :date_of_birth %>
+    <% end %>
+    <%= f.form_group :class => "col-md-4" do %>
+    <%= f.text_field :city %>
+    <% end %>
+    <%= f.form_group :class => "col-md-4" do %>
+    <%= f.text_field :state %>
+    <% end %>
+    <%= f.form_group :class => "col-md-4" do %>
+    <%= f.text_field :zip %>
+    <% end %>
+    <%= f.form_group :class => "col-md-6" do %>
+    <%= f.text_field :home_phone %>
+    <% end %>
+    <%= f.form_group :class => "col-md-6" do %>
+    <%= f.text_field :work_phone %>
+    <% end %>
+    <%= f.form_group :class => "col-md-6" do %>
+    <%= f.text_field :contact_name %>
+    <% end %>
+    <%= f.form_group :class => "col-md-6" do %>
+    <%= f.text_field :contact_phone %>
+    <% end %>
+    <%= f.form_group :gender, label: {text: "Gender"}, :class => "col-md-3" do %>
+    <%= f.radio_button :gender, "Male", label: "Male" %>
+    <%= f.radio_button :gender, "Female", label: "Female" %>
+    <% end %>
+    <%= f.form_group :married, label: {text: "Marital Status"}, :class => "col-md-3" do %>
+    <%= f.radio_button :married, "0", label: "Single" %>
+    <%= f.radio_button :married, "1", label: "Married" %>
+    <%= f.radio_button :married, "2", label: "Divorced" %>
+    <%#= f.radio_button :married, "3", label: "Widow/Widower" %>
+    <% end %>
+    <%= f.form_group :employed, label: {text: "Employment Status"}, :class => "col-md-3" do %>
+    <%= f.radio_button :employed, "0", label: "Employed" %>
+    <%= f.radio_button :employed, "1", label: "Unemployed" %>
+    <%= f.radio_button :employed, "2", label: "Retired" %>
+    <% end %>
+    <%= f.form_group :citizen, label: {text: "US Citizen?"}, :class => "col-md-3" do %>
+    <%= f.radio_button :citizen, "0", label: "No" %>
+    <%= f.radio_button :citizen, "1", label: "Yes" %>
+    <% end %>
+    <div style="clear:both;"></div>
+    <%= f.form_group :class => "col-md-4" do %>
+    <%= f.text_field :household_size %>
+    <% end %>
+    <%= f.form_group :class => "col-md-4" do %>
+    <%= f.text_field :income %>
+    <% end %>
+    <%= f.form_group :class => "col-md-4" do %>
+    <%= f.text_field :income_sources %>
+    <% end %>
+  </div>
+  
+
+  <div class="form-actions col-md-12">
+    <% submit_text = (params[:action] == 'new') ? "Add Drug Information" : "Update" %>
+    <%= f.submit submit_text, :class => "btn btn-danger" %>
+  </div>
+<% end %>

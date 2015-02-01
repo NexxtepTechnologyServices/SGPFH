@@ -1,0 +1,72 @@
+<p id="notice"><%= notice %></p>
+
+<div class="col-xs-12 patient_detail">
+  <div class="col-md-6 col-xs-12">
+    <h3>
+    <%= @patient.name %>
+    <a href="#" title="Print patient"><i class="icon-print"></i></a>
+    <a href="<%= edit_patient_path(@patient) %>" title="Edit patient"><i class="icon-edit"></i></a>
+    <a href="javascript:confirm('Are you sure?')" title="Remove patient"><i class="icon-cancel-circled"></i></a>
+    </h3>
+    <strong>Date of Birth:</strong> <%= @patient.birthday.to_formatted_s(:dob) %><br/>
+    <strong>Advocate:</strong> <%= @patient.advocate_name %><br/>
+    <strong>Advocate Email:</strong> <%= mail_to @patient.advocate_email %><br/>
+    
+    <strong>Address:</strong>
+    <div class="address_div">
+      <%= @patient.address1 %><br/>
+      <% if @patient.address2.present? %>
+        <%= @patient.address2 %><br/>
+      <% end %>
+      <%= "#{@patient.city}, #{@patient.state}  #{@patient.zip}" %>
+    </div><br/>
+    <strong>Home phone:</strong> <%= @patient.home_phone %><br/>
+    <strong>Work phone:</strong> <%= @patient.work_phone %><br/>
+  </div>
+</div>
+<div class="col-xs-12 patient_detail">
+<h4 style="margin: 15px 0 0 8px;">Awards</h4>
+<table class="table">
+  <thead>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Created</th>
+    <th>Vendor</th>
+    <th>Total Granted</th>
+    <th>Funds Used</th>
+    <th>Funds Remaining</th>
+  </thead>
+  <tbody>
+    <% @patient.awards.each do |a| %>
+      <tr id="<%= a.id %>">
+        <td><%= a.award_type_text %></td>
+        <td><%= a.description %></td>
+        <td><%= a.created_at.to_formatted_s(:ld) %></td>
+        <td><%= a.vendor %></td>
+        <td><%= a.total_granted %></td>
+        <td class="funds_used"><%= a.funds_used %></td>
+        <td class="funds_remaining"><%= a.funds_remaining %></td>
+      </tr>
+      <%= render :partial => a.get_sub_partial_name, :locals => { :subs => a.get_sub_awards} %>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<script>
+  $(document).ready(function(){
+    $(".paid_checkbox").change(function(){
+      var me = this;
+      $.get("/set_paid/"+$(me).data("type")+"/"+$(me).val(), null, function(data){
+        var p = $(me).parent();
+        $(me).remove();
+        var d = new Date(data.app_sent);
+        $("<span/>", { html: "Paid"}).appendTo(p);
+        $("tr#"+data.id).find("td.funds_used, td.funds_remaining").addClass("blink");
+        $("tr#"+data.id).find("td.funds_used").html(data.funds_used);
+        $("tr#"+data.id).find("td.funds_remaining").html(data.funds_remaining);
+        $("tr#"+data.id).find("td.funds_used, td.funds_remaining").removeClass("blink");
+      },"json");
+    });
+  });
+</script>
+<div class="clear"></div>

@@ -1,0 +1,49 @@
+<%= render :partial => 'program_nav', :locals => { :sections => [
+		{link: 'overview', display: 'Overview'},
+		{link: 'program_guidelines', display: 'Guidelines'},
+		{link: 'eligibility_guidelines', display: 'Eligibility'},
+		{link: 'how_to_apply', display: 'How To Apply'}
+	] 
+} %>
+<div class="logo-container">
+	<%= image_tag "PCF_logo.png", :class => "col-sm-8 program-logo" %>
+  	<div class="logo-background"></div>
+</div>
+
+<%= render :partial => 'common/sections/flexSlider', :locals => { :slider_data => @sliders} %>
+<div class="program">
+<a class="anchor-links" name="overview"></a><h2 class="col-sm-12 headline">Overview</h2>
+<p>The Partnership Cancer Fund was created to assist area cancer patients undergoing cancer treatment with certain medically related expenses.</p>
+
+<p>Treatment can be costly, especially if you are no longer able to work or do not have health insurance. The cost of medication, durable medical equipment, nutritional supplements, and transportation to and from treatment often places an additional financial strain on families.</p>
+
+<p>Without financial assistance many cancer patients face tremendous financial hardships that can adversely affect their care and recovery. If you know someone who might benefit from the Partnership Cancer Fund, please have the social worker or case manager where they are being treated to contact us. </p>
+
+<p>Please consider becoming a contributor to the Partnership Cancer Fund! To request more information or a pledge card, email <%= mail_to 'john.sparks@sgpfh.org' %> or call John Sparks, Executive Director, Lowndes County Partnership for Health at (229)245-0020 ext 500.</p>
+
+<p>Funds help pay for:</p>
+<ul>
+<li>Transportation costs to health care facility/physician to obtain cancer treatments and follow-up care</li>
+<li>Nutritional supplements</li>
+<li>Cost of durable medical equipment such as breast prostheses or lymph edema sleeves prescribed by a physician and necessary for symptom management</li>
+<li>Cost of symptom control medications related to applicant's cancer treatment</li>
+</ul>
+
+
+<a class="anchor-links" name="program_guidelines"></a><h2 class="col-sm-12 headline">Program Guidelines</h2>
+<p>
+Funds are not available for goods and services obtained prior to date of application<br/>
+Applications accepted based on availability of funds<br/>
+Up to $400 per quarter available for approved needs
+</p>
+
+<a class="anchor-links" name="eligibility_guidelines"></a><h2 class="col-sm-12 headline">Eligibility Guidelines</h2>
+<p>Applicant must be currently undergoing treatment for cancer<br/>
+Applicant must be a resident of Lowndes County or under treatment by a facility or physician in Lowndes County<br/>
+Proof of income is required<br/>
+Applicant's household income must be at or below 300% of Federal Poverty Levels</p>
+
+<a class="anchor-links" name="how_to_apply"></a><h2 class="col-sm-12 headline">How to Apply?</h2>
+<p>You must ask your hospital social worker to fill out the referral form below.
+[provide link to application form]</p>
+</div>

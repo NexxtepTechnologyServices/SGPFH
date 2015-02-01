@@ -1,0 +1,31 @@
+<h1>Listing transports</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Award</th>
+      <th>Number of miles</th>
+      <th>Cost per mile</th>
+      <th>Number trips</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @transports.each do |transport| %>
+      <tr>
+        <td><%= transport.award_id %></td>
+        <td><%= transport.number_of_miles %></td>
+        <td><%= transport.cost_per_mile %></td>
+        <td><%= transport.number_trips %></td>
+        <td><%= link_to 'Show', transport %></td>
+        <td><%= link_to 'Edit', edit_transport_path(transport) %></td>
+        <td><%= link_to 'Destroy', transport, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Transport', new_transport_path %>

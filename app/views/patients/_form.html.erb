@@ -1,0 +1,121 @@
+<%= bootstrap_form_for(@patient) do |f| %>
+
+  <div class="form-inputs">
+    <div id="lookup-data">
+        <%= f.form_group :class => "col-md-3" do %>
+        <%= f.text_field :first_name %>
+        <% end %>
+        <%= f.form_group :class => "col-md-3" do %>
+        <%= f.text_field :middle_name %>
+        <% end %>
+        <%= f.form_group :class => "col-md-3" do %>
+        <%= f.text_field :last_name %>
+        <% end %>
+        <%= f.form_group :class => "col-md-3" do %>
+        <%= f.date_field :birthday, :onchange => "lookUpPatient()",:class => "datepicker",:readonly => "readonly"  %>
+        <% end %>
+    </div>
+    <div class="clearfix divider" id="patient_found_notification"></div>
+    <%= f.form_group :class => "col-md-12" do %>
+    <%= f.text_field :address1 %>
+    <% end %>
+    <%= f.form_group :class => "col-md-12" do %>
+    <%= f.text_field :address2 %>
+    <% end %>
+    <%= f.form_group :class => "col-md-4" do %>
+    <%= f.text_field :city %>
+    <% end %>
+    <%= f.form_group :class => "col-md-4" do %>
+    <%= f.text_field :state %>
+    <% end %>
+    <%= f.form_group :class => "col-md-4" do %>
+    <%= f.text_field :zip %>
+    <% end %>
+    <%= f.form_group :class => "col-md-6" do %>
+    <%= f.text_field :home_phone %>
+    <% end %>
+    <%= f.form_group :class => "col-md-6" do %>
+    <%= f.text_field :work_phone %>
+    <% end %>
+    <%= f.form_group :class => "col-md-6" do %>
+    <%= f.text_field :diagnosis %>
+    <%= f.check_box :diagnosis_confirmed, label: "Diagnosis Confirmed?" %>
+    <% end %>
+    <%= f.form_group :class => "col-md-6" do %>
+    <%= f.text_field :income_sources %>
+    <%= f.check_box :low_income, label: "Low Income?" %>
+    <% end %>
+    <%= f.form_group :class => "col-md-6" do %>
+    <%= f.text_field :advocate_firstname %>
+    <% end %>
+    <%= f.form_group :class => "col-md-6" do %>
+    <%= f.text_field :advocate_lastname %>
+    <% end %>
+    <%= f.form_group :class => "col-md-6" do %>
+    <%= f.text_field :advocate_phone %>
+    <% end %>
+    <%= f.form_group :class => "col-md-6" do %>
+    <%= f.text_field :advocate_email %>
+    <% end %>
+  </div>
+
+  <div class="form-actions">
+    <% submit_text = (params[:action] == 'new') ? "Add Award Information" : "Update" %>
+    <%= f.submit submit_text, :class => "btn btn-danger" %>
+  </div>
+<% end %>
+
+
+<script>
+    $(function(){
+        $( ".datepicker" ).datepicker({
+            dateFormat: "yy-mm-dd",
+            changeYear: true,
+            yearRange: "1930:2014" 
+        });
+    });
+  function lookUpPatient(){
+    var p = $('#lookup-data');
+    var data = {};
+    data.first_name = p.find("#patient_first_name").val();
+    data.last_name = p.find("#patient_last_name").val();
+    data.middle_name = p.find("#patient_middle_name").val();
+    data.birthday = p.find("#patient_birthday").val();
+    $.post("/patientlookup", data, function(data){
+        var p = data[0];
+        $("#patient_found_notification").html(p.first_name + " " + p.last_name + " is a current patient in the system");
+        $("#patient_address1").val(p.address1);
+        $("#patient_address2").val(p.address2);
+        $("#patient_city").val(p.city);
+        $("#patient_state").val(p.state);
+        $("#patient_zip").val(p.zip);
+        $("#patient_home_phone").val(p.home_phone);
+        $("#patient_work_phone").val(p.work_phone);
+        $("#patient_diagnosis").val(p.diagnosis);
+        $("#patient_diagnosis_confirmed").val(p.diagnosis_confirmed);
+        $("#patient_income_sources").val(p.income_sources);
+        $("#patient_low_income").val(p.low_income);
+        $("#patient_advocate_firstname").val(p.advocate_firstname);
+        $("#patient_advocate_lastname").val(p.advocate_lastname);
+        $("#patient_advocate_phone").val(p.advocate_phone);
+        $("#patient_advocate_email").val(p.advocate_email);
+    },"json").fail(function(){
+        $("#patient_found_notification").html("");
+        $("#patient_address1").val("");
+        $("#patient_address2").val("");
+        $("#patient_city").val("");
+        $("#patient_state").val("");
+        $("#patient_zip").val("");
+        $("#patient_home_phone").val("");
+        $("#patient_work_phone").val("");
+        $("#patient_diagnosis").val("");
+        $("#patient_diagnosis_confirmed").val("");
+        $("#patient_income_sources").val("");
+        $("#patient_low_income").val("");
+        $("#patient_advocate_firstname").val("");
+        $("#patient_advocate_lastname").val("");
+        $("#patient_advocate_phone").val("");
+        $("#patient_advocate_email").val("");
+    });
+  }
+  </script>

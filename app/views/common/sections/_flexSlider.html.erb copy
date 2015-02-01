@@ -1,0 +1,33 @@
+<section id="homeFlex">
+			<div class="flexslider flexFullScreen" >
+				<ul class="slides sliderWrapper">
+					<li class="slideN0">
+						<img src="images/image1.jpg" alt="pic 1"/>
+						<div class="caption right">
+							<div class="element1-1" data-animation="fadeInRightBig">
+								<h3>Lowndes County Partnership For Health<br/>is now</h3>
+								<h1>South Georgia Partnership For Health</h1>
+							</div>
+							<div class="element1-2" data-animation="fadeInRightBig">
+								<h2>Same Great People</h2>
+							</div>
+							<div class="element1-3  hidden-xs" data-animation="fadeInRightBig">
+								<p>Same Great service</p>
+							</div>
+							<div class="element1-4" data-animation="fadeInRightBig"><a href="#" class="btn btn-primary">New Name!</a></div>
+						</div>
+					</li>
+					<li class="slideN1"> <img src="images/image2.jpg" alt="pic 2"/>
+						<div class="caption left">
+							<div class="element3-1" data-animation="fadeInLeftBig">
+								<h1>We are here to help</h1>
+							</div>
+							<div class="element3-2" data-animation="fadeInLeftBig">
+								<h2>Ask your physican today</h2>
+							</div>
+							<div class="element3-3" data-animation="fadeInRightBig"><a href="#" class="btn btn-primary">Read more</a></div>
+						</div>
+					</li>
+				</ul>				
+			</div>
+		</section>

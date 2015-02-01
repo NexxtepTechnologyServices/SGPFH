@@ -1,0 +1,82 @@
+
+<section id="internal-page" class="col-xs-10">
+
+<h1>Awards for Approval</h1>
+<form>
+  <input style="display:none;" type="submit" class="btn btn-primary" value="Search">
+  <div id="search_type_group" class="btn-group pull-right">
+    <button type="button" class="btn btn-info<%= " btn-primary" if @unpaid %>" data-value="unpaid">Show Unapproved</button>
+    <button type="button" class="btn btn-info<%= " btn-primary" if !@unpaid %>" data-value="all">Show All</button>
+  </div>
+  <input id="search_type" type="hidden" name="search_type" value="unpaid"/>
+</form>
+<% if @awards.present? %>
+<table class="table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Date Of Service</th>
+      <th>Award type</th>
+      <th>Patient Name</th>
+      <th>Vendor</th>
+      <th>Total</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @awards.each do |award| %>
+      <% if !@unpaid || !award.approved_by?(current_user.affiliate.id) %>
+        <tr>
+          <td class="funds_status">
+            <% status_text = (award.approved_by?(current_user.affiliate.id)) ? "Approved" : "Unapproved" %>
+            <% status_class = (award.approved_by?(current_user.affiliate.id)) ? "btn-success" : "btn-danger" %>
+            <span class='paid_status btn <%= status_class %>'><%= status_text %></span>
+          </td>
+          <td style="vertical-align: middle;"><%= award.date_of_service.to_formatted_s(:ld) %></td>
+          <td style="vertical-align: middle;"><%= "#{award.award_type_text} Award" %></td>
+          <td style="vertical-align: middle;"><%= award.patient.name %></td>
+          <td style="vertical-align: middle;"><%= award.vendor %></td>
+          <td style="vertical-align: middle;"><%= number_to_currency(award.total_requested) %></td>
+          <td style="vertical-align: middle;">
+          <% unless award.approved_by?(current_user.affiliate.id) %>
+            <strong>Approve</strong> 
+             :&nbsp;<%= check_box_tag "approve", award.id, false, :class => "approve_checkbox","data-type" => "Award" %>
+             <% else %>
+             <strong>Approved</strong>
+             <% end %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+<% else %>
+  <p>No Results Found</p>
+<% end %>
+<script>
+$(function(){
+        $( ".datepicker" ).datepicker({
+            dateFormat: "yy-mm-dd",
+            showOptions: { direction: "down" }
+            //changeYear: true,
+            //yearRange: "1930:2014" 
+        });
+        $("#search_type_group button").click(function(){
+          var p = $(this).parent();
+          p.find("button").removeClass("btn-primary").addClass("btn-info");
+          $(this).addClass("btn-primary");
+          $("#search_type").val(this.dataset.value);
+          p.parent().find("input[type='submit']").click();
+        });
+        $(".approve_checkbox").change(function(){
+          var me = this;
+          $.get("/awards/"+$(me).val()+"/approve_login", null, function(data){
+            var p = $(me).parent();
+            //$(me).remove();
+            //$("<span/>", { html: "Paid"}).appendTo(p);
+            p.html("<strong>Approved</strong>");
+            p.parent().find("td.funds_status span.paid_status").removeClass('btn-danger').addClass('btn-success').html('Approved');
+          },"json");
+        });
+    });
+</script>

@@ -1,0 +1,68 @@
+<section id="internal-page" class="col-xs-10">
+
+<h1>Listing patients<%= link_to 'New Patient', new_patient_path, :class => "btn btn-success", :style => "margin-left:35px;" %></h1>
+<form>
+  <input type="text" name="query" placeholder="Search"/>
+  <input type="submit" class="btn btn-primary" value="Search">
+  <%= link_to "Clear", patients_path, :class => "btn btn-warning" %>
+</form>
+<table class="table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Date Of Birth</th>
+      <th>Date Entered</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @patients.each do |patient| %>
+      <tr id="<%= "patient_#{patient.id}" %>">
+        <td class="text-center">
+          <span class="label label-danger unpaid_awards" title="UnPaid Awards"><%= patient.unpaid_awards %></span>
+          <span class="label label-warning unapproved_awards" title="Unapproved Awards"><%= patient.unapproved_awards %></span>
+        </td>
+        <td><%= link_to patient.name, patient_path(patient) %></td>
+        <td><%= patient.birthday.to_formatted_s(:dob) %></td>
+        <td><%= patient.created_at.to_formatted_s(:ld) %></td>
+        <td>
+          <a href="<%= patient_path(patient) %>" title="View Patient">
+            <i class="icon-info-circled"></i>
+          </a>
+          <a href="<%= edit_patient_path(patient) %>" title="Edit Patient">
+            <i class="icon-edit"></i>
+          </a>
+          <a href="#" title="Remove Patient" class="remove_patient" data-value="<%= patient.id %>">
+            <i class="icon-cancel-circled"></i>
+          </a>
+      </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<script>
+  
+$(document).ready(function(){
+  $(".remove_patient").click(function(){
+      var me = this;
+      var id = me.dataset.value;
+      var b = confirm("Are your sure you want to remove this PCF? \n This Action cannot be undone!");
+      if(b){
+        $.ajax({
+          url: "/patients/"+id+".json",
+          type: 'DELETE',
+          success: function(data){
+            $("#patient_"+data.id).remove();
+          }
+        });
+      }
+    });
+});
+
+</script>
+

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Award:</strong>
+  <%= @transport.award_id %>
+</p>
+
+<p>
+  <strong>Number of miles:</strong>
+  <%= @transport.number_of_miles %>
+</p>
+
+<p>
+  <strong>Cost per mile:</strong>
+  <%= @transport.cost_per_mile %>
+</p>
+
+<p>
+  <strong>Number trips:</strong>
+  <%= @transport.number_trips %>
+</p>
+
+<%= link_to 'Edit', edit_transport_path(@transport) %> |
+<%= link_to 'Back', transports_path %>
