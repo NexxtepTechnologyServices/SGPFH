@@ -20,10 +20,10 @@
     <tr>
       <th></th>
       <th>Date Of Service</th>
+      <th>Patient Name</th>
       <th>Award type</th>
       <th>Vendor</th>
       <th>Item</th>
-      <th>Patient Name</th>
       <th>Qty.</th>
       <th>Total</th>
       <th></th>
@@ -40,10 +40,10 @@
             <span class='paid_status btn <%= status_class %>'><%= status_text %></span>
           </td>
           <td style="vertical-align: middle;"><%= award.date_of_service.to_formatted_s(:ld) %></td>
+          <td style="vertical-align: middle;"><%= award.patient.name %></td>
           <td style="vertical-align: middle;"><%= award.award_type_text %></td>
           <td style="vertical-align: middle;"><%= award.vendor %></td>
           <td style="vertical-align: middle;"><%= item.name %></td>
-          <td style="vertical-align: middle;"><%= award.patient.name %></td>
           <td style="vertical-align: middle;"><%= item.quantity %></td>
           <td style="vertical-align: middle;"><%= number_to_currency(item.total_cost) %></td>
           <td style="vertical-align: middle;">

@@ -1,0 +1,14 @@
+<div class="col-sm-3 sub_award_card">
+	<div class="card-menu">
+		<%= link_to "edit", "/#{sub.class.name.downcase.pluralize}/#{sub.id}/edit", :class => "btn btn-default" unless sub.paid?%>
+	</div>
+	<div class="body">
+		<% sub.attributes.each do |i, v| %>
+		<% unless ["id","award_id","created_at","updated_at"].include?(i) %>
+			<strong><%= i.humanize() %>:</strong> 
+				<%= (!!v == v) ? ((v) ? "Yes" : "No") : ((v.nil?) ? "No" : v ) %>
+			<br/>
+		<% end %>
+		<% end %>
+	</div>
+</div>

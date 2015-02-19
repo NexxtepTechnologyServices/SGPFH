@@ -44,6 +44,8 @@ class AwardsController < ApplicationController
 
   # GET /awards/1/edit
   def edit
+    @patient = @award.patient
+    
   end
 
   # POST /awards
@@ -75,7 +77,7 @@ class AwardsController < ApplicationController
   def update
     respond_to do |format|
       if @award.update(award_params)
-        format.html { redirect_to patients_path, notice: 'Award was successfully updated.' }
+        format.html { redirect_to patient_path(@award.patient), notice: 'Award was successfully updated.' }
         format.json { render :show, status: :ok, location: @award }
       else
         format.html { render :edit }

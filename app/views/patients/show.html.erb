@@ -74,12 +74,13 @@
         <td class="funds_remaining"><%= number_to_currency(a.funds_remaining) %></td>
         <td>
           <% if @isAdmin %>
-            <a href="#" title="Approve Award" class="approve_award" data-value="<%= a.id %>"><i class="icon-ok-circled"></i></a>  
+            <a href="#" title="Approve Award" class="approve_award" data-value="<%= a.id %>"><i class="icon-ok-circled"></i></a>
+            <a href="<%= edit_award_path(a) %>" title="Edit Award" class="edit_award" data-value="<%= a.id %>"><i class="icon-edit"></i></a>  
           <% end %>
           <a href="#" title="Remove Award" class="remove_award" data-value="<%= a.id %>"><i class="icon-cancel-circled"></i></a>
         </td>
       </tr>
-      <%= render :partial => a.get_sub_partial_name, :locals => { :subs => a.get_sub_awards} %>
+      <%= render :partial => a.get_sub_partial_name, :locals => { :subs => a.get_sub_awards, :show_paid => true} %>
       <%= render :partial => 'approvals_list', :locals => { :award => a } %>
     <% end %>
   </tbody>

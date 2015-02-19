@@ -190,3 +190,15 @@ z-index: 1;}
   width: 100%;
 }
 section#services .container, section.color2 .container {padding-top: 60px;}
+
+.sub_award_card{background: none repeat scroll 0 0 rgba(128, 128, 128, 0.2);
+border: 1px solid rgba(128, 128, 128, 0.7);
+border-radius: 12px;
+box-sizing: border-box;
+margin: 0 10px 20px;
+padding: 25px 40px;}
+.sub_award_card .card-menu{position: absolute;
+right: 20px;
+top: 10px;}
+.sub_card:after{clear:both;}
+.sub_award_card .body{}

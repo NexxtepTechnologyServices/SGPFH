@@ -1,17 +1,25 @@
 <% subs.each_with_index do |sub, i| %>
       <tr class="award_<%= sub.award.id %>">
+      <% if !show_paid %> <td class="sub_award">&nbsp;</td><td class="sub_award">&nbsp;</td> <%end %>
       <% if i > 0 %><td class="sub_award">&nbsp;</td> <% end %>
         <td class="sub_award"><strong>Med. ID: </strong><%= sub.id_number %></td>
         <td class="sub_award"><strong>Name: </strong><%= sub.name %></td>
         <td class="sub_award"><strong>Unit Cost: </strong><%= number_to_currency(sub.unit_cost) %></td>
         <td class="sub_award"><strong>Qty: </strong><%= sub.quantity %></td>
         <td class="sub_award"><strong>Total: </strong><%= number_to_currency(sub.total_cost) %></td>
-        <td class="sub_award">
+        <% if show_paid %><td class="sub_award">
 	        <strong>Paid: </strong> <% unless sub.paid? %>
 		    <%= check_box_tag "paid", sub.id, false, :class => "paid_checkbox","data-type" => sub.class.name %>
 			<% else %>
 			<span><strong>Paid</strong></span>
 			<% end %>
 		</td>
+    <% end %>
+    <% unless sub.paid? %>
+      <td class="sub_award">
+          <a href="<%= "/#{sub.class.name.downcase.pluralize}/#{sub.id}/edit" %>" title="Edit" class="edit_award" data-value="<%= sub.id %>"><i class="icon-edit"></i></a>  
+          <a href="#" title="Remove Award" class="remove_award" data-value="<%= sub.id %>"><i class="icon-cancel-circled"></i></a>
+      </td>
+    <% end %>
       </tr>
 <% end %>

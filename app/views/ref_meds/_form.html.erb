@@ -24,7 +24,7 @@
 <script>
   function newDrug(e){
     var p = $(e).parent().parent();
-    var referral_id = 
+    //var referral_id = 
     var data = {};
     data.ref_med = {};
     data.ref_med.drug = p.find("#ref_med_drug").val();
@@ -45,7 +45,7 @@
         "onclick": "removeRow(this)"
       }).appendTo("#drug_form .form-inputs:last");
       $("#drug_form .form-inputs:last #ref_med_id").val(data.id);
-      $("#drug_form .form-inputs:last #ref_med_referral_id").val(data.);
+      $("#drug_form .form-inputs:last #ref_med_referral_id").val(data.referral_id);
       inputs.find("input").each(function(){ $(this).val(""); });
       inputs.find("label").hide();
       inputs.appendTo("#drug_form");
