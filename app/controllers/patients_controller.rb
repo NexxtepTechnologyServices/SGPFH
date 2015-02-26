@@ -63,6 +63,7 @@ class PatientsController < ApplicationController
           if current_user.admin
             format.html { redirect_to @patient, notice: 'Patient Data was successfully updated.' }
           else
+            session[:patient] = @patient.id
             format.html { redirect_to new_award_path, notice: 'Patient Saved!' }
           end
           format.json { render :show, status: :ok, location: @patient }
