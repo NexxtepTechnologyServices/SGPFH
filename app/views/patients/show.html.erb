@@ -80,7 +80,7 @@
           <a href="#" title="Remove Award" class="remove_award" data-value="<%= a.id %>"><i class="icon-cancel-circled"></i></a>
         </td>
       </tr>
-      <%= render :partial => a.get_sub_partial_name, :locals => { :subs => a.get_sub_awards, :show_paid => true} %>
+      <%= render :partial => a.get_sub_partial_name, :locals => { :subs => a.get_sub_awards, :show_paid => true, :is_admin => true} %>
       <%= render :partial => 'approvals_list', :locals => { :award => a } %>
     <% end %>
   </tbody>

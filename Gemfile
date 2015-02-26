@@ -11,7 +11,9 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 gem 'bootstrap-sass'
 gem 'devise'
-gem 'mysql'
+group :production do
+  gem 'mysql'
+end
 gem 'puma'
 gem 'simple_form'
 gem 'bootstrap_form'
@@ -21,6 +23,7 @@ gem 'carrierwave'
 gem 'activeadmin', github: 'activeadmin'
 gem 'therubyracer'
 group :development do
+  gem 'pg'
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
   gem 'quiet_assets'

@@ -17,11 +17,13 @@
   			   <% end %>
   		    </td>
         <% end %>
-        <% unless sub.paid? %>
-      <td class="sub_award">
-          <a href="<%= "/#{sub.class.name.downcase.pluralize}/#{sub.id}/edit" %>" title="Edit" class="edit_award" data-value="<%= sub.id %>"><i class="icon-edit"></i></a>  
-          <a href="#" title="Remove Award" class="remove_award" data-value="<%= sub.id %>"><i class="icon-cancel-circled"></i></a>
-      </td>
-    <% end %>
+        <% if is_admin %>
+          <% unless sub.paid? %>
+            <td class="sub_award">
+                <a href="<%= "/#{sub.class.name.downcase.pluralize}/#{sub.id}/edit" %>" title="Edit" class="edit_award" data-value="<%= sub.id %>"><i class="icon-edit"></i></a>  
+                <a href="#" title="Remove Award" class="remove_award" data-value="<%= sub.id %>"><i class="icon-cancel-circled"></i></a>
+            </td>
+          <% end %>
+        <% end %>
       </tr>
 <% end %>
