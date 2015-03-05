@@ -22,8 +22,9 @@ gem 'bootstrap-datepicker-rails'
 gem 'carrierwave'
 gem 'activeadmin', github: 'activeadmin'
 gem 'therubyracer'
+gem 'mysql'
 group :development do
-  gem 'pg'
+  #gem 'pg'
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
   gem 'quiet_assets'
