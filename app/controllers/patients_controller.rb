@@ -27,7 +27,16 @@ class PatientsController < ApplicationController
     end
     @isAdmin = (current_user.admin)
   end
-
+  def print
+    @patient = Patient.find(params[:id])
+    session[:patient] = @patient.id
+    @awards = Hash.new
+    @patient.awards.each do |a|
+      @awards[a.award_type] = Array.new unless @awards.has_key?(a.award_type)
+      @awards[a.award_type] << a
+    end
+    @isAdmin = (current_user.admin)
+  end
   # GET /patients/new
   def new
     @patient = Patient.new

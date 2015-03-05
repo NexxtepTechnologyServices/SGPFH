@@ -4,7 +4,7 @@
   <div class="col-md-6 col-xs-12">
     <h3>
     <%= @patient.name %>
-    <a href="#" title="Print patient"><i class="icon-print"></i></a>
+    <a href="<%= print_patient_path(@patient) %>" title="Print patient"><i class="icon-print"></i></a>
     <a href="<%= edit_patient_path(@patient) %>" title="Edit patient"><i class="icon-edit"></i></a>
     <a href="javascript:confirm('Are you sure?')" title="Remove patient"><i class="icon-cancel-circled"></i></a>
     <a href="<%= new_award_path %>" title="Add New Award"><i class="icon-plus-circled"></i></a>

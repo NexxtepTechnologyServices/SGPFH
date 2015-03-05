@@ -36,9 +36,13 @@ Rails.application.routes.draw do
 
   resources :patients
   post "/patientlookup" => "patients#lookup"
-  
+  get "/patient/print/:id" => "patients#print", :as => :print_patient
+
   resources :affiliates
   get "/affiliate/approval" => "affiliates#approval", :as => :affiliate_approval
   devise_for :users
   resources :users
+
+  resources :blog_posts
+
 end

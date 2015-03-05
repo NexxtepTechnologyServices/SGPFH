@@ -1,0 +1,67 @@
+<p id="notice"><%= notice %></p>
+
+<div class="col-xs-12 patient_detail">
+  <div class="col-md-6 col-xs-12">
+    <h3>
+    <%= @patient.name %>
+    </h3>
+    <strong>Date of Birth:</strong> <%= @patient.birthday.to_formatted_s(:dob) %><br/>
+    <strong>Advocate:</strong> <%= @patient.advocate_name %><br/>
+    <strong>Advocate Email:</strong> <%= mail_to @patient.advocate_email %><br/>
+    
+    <strong>Address:</strong>
+    <div class="address_div">
+      <%= @patient.address1 %><br/>
+      <% if @patient.address2.present? %>
+        <%= @patient.address2 %><br/>
+      <% end %>
+      <%= "#{@patient.city}, #{@patient.state}  #{@patient.zip}" %>
+    </div><br/>
+    <strong>Home phone:</strong> <%= @patient.home_phone %><br/>
+    <strong>Work phone:</strong> <%= @patient.work_phone %><br/>
+  </div>
+  <div class="col-md-6 col-xs-12" id="quotas">
+  <h3>&nbsp;</h3>
+  <h5>Current Quotas</h5>
+    <p><strong>LifeTime:  </strong><span id="life"><%= number_to_currency(@patient.lifetime_total) %></span></p>
+    <p><strong>Year To Date:  </strong><span id="year"><%= number_to_currency(@patient.funds_this_year) %></span></p>
+    <p><strong>Current Quarter:  </strong><span id="quarter"><%= number_to_currency(@patient.funds_this_quarter) %></span></p>
+  </div>
+</div>
+
+<div class="col-xs-12 patient_detail">
+<hr/>
+<h3 style="margin: 0px 20px;" class="pull-left">Awards</h3>
+<div class="clearfix"></div>
+<% @awards.each do |key, at| %>
+<table class="table">
+  <thead>
+    <th>Type</th>
+    <th>Date Of Service</th>
+    <th>Vendor</th>
+    <th>Total Granted</th>
+    <th>Funds Used</th>
+    <th>Funds Remaining</th>
+  </thead>
+  <tbody>
+    <% at.each do |a| %>
+      <tr id="<%= a.id %>" class="award_<%= a.id %>">
+        <td><%= a.award_type_text %></td>
+        <td><%= a.date_of_service.to_formatted_s(:ld) %></td>
+        <td><%= a.vendor %></td>
+        <td><%= number_to_currency(a.total_granted) %></td>
+        <td class="funds_used"><%= number_to_currency(a.funds_used) %></td>
+        <td class="funds_remaining"><%= number_to_currency(a.funds_remaining) %></td>
+      </tr>
+      <%= render :partial => a.get_sub_partial_name, :locals => { :subs => a.get_sub_awards} %>
+      <%= render :partial => 'approvals_list', :locals => { :award => a } %>
+    <% end %>
+  </tbody>
+</table>
+<hr/>
+<% end %>
+</div>
+<script>
+  $(".check-box-cell").html("");
+</script>
+<div class="clear"></div>

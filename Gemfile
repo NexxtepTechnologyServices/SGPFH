@@ -19,6 +19,8 @@ gem 'tire'
 gem 'bootstrap-datepicker-rails'
 gem 'carrierwave'
 gem 'activeadmin', github: 'activeadmin'
+gem 'active_admin_editor'
+gem 'rmagick'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]

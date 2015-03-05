@@ -6,7 +6,7 @@
         <td class="sub_award"><strong>Unit Cost: </strong><%= number_to_currency(sub.unit_cost) %></td>
         <td class="sub_award"><strong>Qty: </strong><%= sub.quantity %></td>
         <td class="sub_award"><strong>Total: </strong><%= number_to_currency(sub.total_cost) %></td>
-        <td class="sub_award">
+        <td class="sub_award check-box-cell">
 	        <strong>Paid: </strong> <% unless sub.paid? %>
 		   <%= check_box_tag "paid", sub.id, false, :class => "paid_checkbox","data-type" => sub.class.name %>
 			<% else %>

@@ -1,0 +1,66 @@
+<section id="page">
+	<!--<header class="page-header">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h1>The Partnership Blog</h1>
+					<ul class="breadcrumb visible-md visible-lg">
+						<li><a href="index.html">Home</a></li>
+						<li><a href="blog-home-sidebar-right.html">Blog</a></li>
+						<li class="active">Blog fullscreen</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</header>-->
+	<section id="content" class="mt30 pb30">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+				<% @posts.each do |post| %>
+					<article class="post clearfix">
+						<div class="postPic">
+							<div class="imgBorder mb15">
+								<%= link_to image_tag(post.image.banner.url, :class => "img-responsive col-sm-12"), post %>
+							</div>
+						</div>
+						<section class="text-center">	
+							<h1>
+								<%= link_to post.title, post %>
+							</h1>
+							<p>
+								<%= post.content.html_safe %>
+								<%= link_to "read more", post, :class => "readMore" %>
+							</p>
+							<ul class="entry-meta">
+								<li class="entry-date">
+									<a href="#"><i class="icon-pin"></i>&nbsp;<%= post.created_at %></a>
+								</li>
+								<li class="entry-author"><a href="#"><i class="icon-male"></i>&nbsp;<%= post.author %></a></li>
+							</ul>
+						</section>
+					</article>
+
+					<hr class="lineArrow mt40 mb40">
+					<% end %>
+					<!--<section class="centeredPagination row">								
+						<div class="col-md-12 text-center">
+							<ul class="pagination">
+								<li><a href="#">«</a></li>
+								<li><a href="#">1</a></li>
+								<li><a href="#">2</a></li>
+								<li><a href="#">3</a></li>
+								<li><a href="#">4</a></li>
+								<li><a href="#">5</a></li>
+								<li><a href="#">»</a></li>
+							</ul>
+
+						</div>
+					</section>-->
+				</div>
+
+			</div><!-- row -->
+		</div><!-- container -->
+	</section>
+</section>
+<!-- content -->
