@@ -17,6 +17,7 @@
       <th></th>
       <th>Date Of Service</th>
       <th>Patient Name</th>
+      <th>Cancer</th>
       <th>Award type</th>
       <th>Vendor</th>
       <th>Total</th>
@@ -34,6 +35,7 @@
           </td>
           <td style="vertical-align: middle;"><%= award.date_of_service.to_formatted_s(:ld) %></td>
           <td style="vertical-align: middle;"><%= award.patient.name %></td>
+          <td style="vertical-align: middle;"><%= award.patient.diagnosis %></td>
           <td style="vertical-align: middle;"><%= "#{award.award_type_text} Award" %></td>
           <td style="vertical-align: middle;"><%= award.vendor %></td>
           <td style="vertical-align: middle;"><%= number_to_currency(award.total_requested) %></td>
@@ -46,6 +48,7 @@
              <% end %>
           </td>
         </tr>
+        <%= render :partial => "patients/#{award.get_sub_partial_name}", :locals => { :subs => award.get_sub_awards, :show_paid => false, :is_admin => false } %>
       <% end %>
     <% end %>
   </tbody>

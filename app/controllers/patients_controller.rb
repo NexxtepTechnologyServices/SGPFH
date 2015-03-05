@@ -69,8 +69,13 @@ class PatientsController < ApplicationController
   def update
     respond_to do |format|
       if @patient.update(patient_params)
-        format.html { redirect_to @patient, notice: 'Patient was successfully updated.' }
-        format.json { render :show, status: :ok, location: @patient }
+          if current_user.admin
+            format.html { redirect_to @patient, notice: 'Patient Data was successfully updated.' }
+          else
+            session[:patient] = @patient.id
+            format.html { redirect_to new_award_path, notice: 'Patient Saved!' }
+          end
+          format.json { render :show, status: :ok, location: @patient }
       else
         format.html { render :edit }
         format.json { render json: @patient.errors, status: :unprocessable_entity }
@@ -91,8 +96,8 @@ class PatientsController < ApplicationController
 
   def lookup
     #@patient = Patient.where("first_name = ? AND middle_name = ? AND last_name = ? and birthday = ?", params[:first_name],params[:middle_name],params[:last_name],params[:birthday])
-    if params[:middle_name].empty?
-      @patient = Patient.where("first_name = ? AND middle_name IS NULL AND last_name = ? AND birthday = ?", params[:first_name], params[:last_name],params[:birthday])
+    if params[:middle_name].blank?
+      @patient = Patient.where("first_name = ? AND last_name = ? AND birthday = ?", params[:first_name], params[:last_name],params[:birthday])
     else
       @patient = Patient.where("first_name = ? AND middle_name = ? AND last_name = ? AND birthday = ?", params[:first_name], m ,params[:last_name],params[:birthday])
     end
@@ -113,6 +118,6 @@ class PatientsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def patient_params
-      params.require(:patient).permit(:first_name, :last_name, :middle, :birthday, :address1, :address2, :city, :state, :zip, :home_phone, :work_phone, :diagnosis, :diagnosis_confirmed, :low_income, :income_sources, :advocate_firstname, :advocate_lastname, :advocate_phone, :advocate_email)
+      params.require(:patient).permit(:first_name, :last_name, :middle_name, :birthday, :address1, :address2, :city, :state, :zip, :home_phone, :work_phone, :diagnosis, :diagnosis_confirmed, :low_income, :income_sources, :advocate_firstname, :advocate_lastname, :advocate_phone, :advocate_email)
     end
 end

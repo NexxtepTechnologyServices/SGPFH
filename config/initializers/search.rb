@@ -1,2 +1,2 @@
-Referral.import
-Patient.import
+#Referral.import
+#Patient.import

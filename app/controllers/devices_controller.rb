@@ -41,8 +41,14 @@ class DevicesController < ApplicationController
   # PATCH/PUT /devices/1.json
   def update
     respond_to do |format|
+      cTotal = @device.total_cost
       if @device.update(device_params)
-        format.html { redirect_to @device, notice: 'Device was successfully updated.' }
+        t_diff = @device.total_cost - cTotal
+        a = @device.award
+        a.total_requested += t_diff
+        a.total_granted = a.total_requested
+        a.save
+        format.html { redirect_to @device.award.patient, notice: 'Device was successfully updated.' }
         format.json { render :show, status: :ok, location: @device }
       else
         format.html { render :edit }

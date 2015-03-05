@@ -1,0 +1,37 @@
+<script src="https://github.com/douglascrockford/JSON-js"></script>
+
+<%= bootstrap_form_for(@award) do |f| %>
+  <%= f.hidden_field :patient_id, :value => @patient.id %>
+  <h3><%= @award.award_type_text %> Award</h3>
+  <div class="form-inputs">  
+    <div id="award_type_div">
+      <% @award.get_sub_awards.each do |sub| %>
+        <%= render :partial => "sub_card", locals: { :sub => sub } %>
+      <% end %>
+    </div>
+    <div style="clear:both;"></div>
+    <%= f.text_field :date_of_service, label: "Date Of Service", :class => 'datepicker',:readonly => 'readonly' %>
+    <%= f.text_field :vendor, label: "Preferred Vendor" %>
+    <%= f.text_field :total_requested, label: "Total Funds Requested", :readonly => true %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit :submit %> <%= link_to "Cancel", patient_path(@award.patient) %>
+  </div>
+<% end %>
+
+<script>
+  $(document).ready(function(){
+    $( ".datepicker" ).datepicker({dateFormat: "yy-mm-dd"});
+    $("#award_type_div").on("blur", ".item_total_field", updateTotal);
+  });
+  function updateTotal(){
+    var total = 0.00;
+    $(".item_total_field").each(function(){
+      var v = parseFloat($(this).val());
+      if (!isNaN(v)) total += parseFloat($(this).val());
+    });
+    $("#award_total_requested").val(total.toFixed(2));
+  }
+
+</script>

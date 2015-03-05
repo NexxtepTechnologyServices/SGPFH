@@ -33,7 +33,7 @@
 										</ul>
 									</li>
 
-									<% unless current_user.affiliate? %>
+									<% unless current_user.reviewer? %>
 										<li class="sep"></li>
 										<li class="primary"> 
 											<a href="<%= referrals_path %>" class="firstLevel <%= "active" if params[:controller] == 'referrals' %> hasSubMenu" >MedBank</a>
@@ -84,7 +84,7 @@
 								<li class="primary">
 									<a href="#" class="firstLevel <%= "active" if params[:controller] == 'blogs' %> hasSubMenu">Blog</a>
 								</li>-->
-								<% if user_signed_in? && current_user.affiliate? %>
+								<% if user_signed_in? && current_user.reviewer? %>
 									<li class="sep"></li>
 									<li class="primary">
 										<a href="<%= affiliate_approval_path %>" class="firstLevel <%= "active" if params[:controller] == 'awards' %>">Approval</a>

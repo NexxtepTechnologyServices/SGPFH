@@ -99,6 +99,8 @@
         $("#patient_advocate_lastname").val(p.advocate_lastname);
         $("#patient_advocate_phone").val(p.advocate_phone);
         $("#patient_advocate_email").val(p.advocate_email);
+
+        $("form#new_patient").attr("action","/patients/"+p.id+"/inlineedit");
     },"json").fail(function(){
         $("#patient_found_notification").html("");
         $("#patient_address1").val("");
