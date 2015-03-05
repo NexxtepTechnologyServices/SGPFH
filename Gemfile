@@ -21,6 +21,8 @@ gem 'tire'
 gem 'bootstrap-datepicker-rails'
 gem 'carrierwave'
 gem 'activeadmin', github: 'activeadmin'
+gem 'active_admin_editor'
+gem 'rmagick'
 gem 'therubyracer'
 gem 'mysql'
 group :development do

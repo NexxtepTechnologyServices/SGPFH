@@ -1,7 +1,7 @@
 <% subs.each_with_index do |sub, i| %>
       <tr class="award_<%= sub.award.id %>">
-      <% if !show_paid %> <td class="sub_award">&nbsp;</td><td class="sub_award">&nbsp;</td> <%end %>
-      <% if i > 0 %><td class="sub_award">&nbsp;</td> <% end %>
+      <% if !show_paid %> <td class="sub_award">&nbsp;</td> <%end %>
+      <% if i > 0 %> <!--<td class="sub_award">&nbsp;</td>--><% end %>
         <td class="sub_award"><strong>Med. ID: </strong><%= sub.id_number %></td>
         <td class="sub_award"><strong>Name: </strong><%= sub.name %></td>
         <td class="sub_award"><strong>Unit Cost: </strong><%= number_to_currency(sub.unit_cost) %></td>
