@@ -53,7 +53,7 @@
         <td class="funds_used"><%= number_to_currency(a.funds_used) %></td>
         <td class="funds_remaining"><%= number_to_currency(a.funds_remaining) %></td>
       </tr>
-      <%= render :partial => a.get_sub_partial_name, :locals => { :subs => a.get_sub_awards} %>
+      <%= render :partial => a.get_sub_partial_name, :locals => { :subs => a.get_sub_awards, :show_paid => false, :is_admin => false  } %>
       <%= render :partial => 'approvals_list', :locals => { :award => a } %>
     <% end %>
   </tbody>
@@ -61,7 +61,4 @@
 <hr/>
 <% end %>
 </div>
-<script>
-  $(".check-box-cell").html("");
-</script>
 <div class="clear"></div>

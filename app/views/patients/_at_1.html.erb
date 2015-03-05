@@ -1,7 +1,7 @@
 <% subs.each_with_index do |sub, i| %>
       <tr class="award_<%= sub.award.id %>">
       <% if !show_paid %> <td class="sub_award">&nbsp;</td><td class="sub_award">&nbsp;</td><td class="sub_award">&nbsp;</td> <%end %>
-        <% if i > 0 %><td class="sub_award">&nbsp;</td> <% end %>
+        <% if i > 0 %><!--<td class="sub_award">&nbsp;</td>--> <% end %>
         <td class="sub_award"><strong>Miles: </strong><%= sub.number_of_miles %></td>
         <td class="sub_award"><strong>$ Per Mile: </strong>$<%= sub.cost_per_mile %></td>
         <td class="sub_award"><strong>Round Trips: </strong><%= sub.number_trips %></td>
