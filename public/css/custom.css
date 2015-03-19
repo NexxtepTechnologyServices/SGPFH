@@ -30,7 +30,7 @@ z-index: 100;
   border: 1px solid #fff;
   color: #fff;
 }
-.slider-image{height:450px;}
+.slider-image{/*height:450px;*/height:auto;}
 .flexslider h1 {
   background: none repeat scroll 0 0 #263286;
   color: #ffffff;
