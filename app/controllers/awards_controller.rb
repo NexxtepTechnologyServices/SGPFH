@@ -22,6 +22,7 @@ class AwardsController < ApplicationController
       #@awards = Award.where("date_of_service >= ? AND date_of_service <= ?", start_date,end_date).order(created_at: :desc)
     end
     @awards = Award.includes(:patient).where(conditions.join(" AND "), values)
+    @awards.to_a.reject! { |a| a.patient.nil? }
     @awards = @awards.sort_by { |a| a.patient.last_name }
     #@vendors = Award.all.map {|a| [a.vendor, a.vendor]};
     @vendors = Award.uniq.pluck(:vendor)

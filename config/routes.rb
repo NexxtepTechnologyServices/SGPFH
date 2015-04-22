@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   resources :notes
@@ -10,6 +12,10 @@ Rails.application.routes.draw do
   get '/pcf' => 'default#pcf'
   get '/wellness' => 'default#wellness'
   get '/healthcenter' => 'default#healthcenter'
+
+  get 'reports/index' => 'reports#index', as: :reports
+  post 'reports/patients' => 'reports#patients', as: :patient_report
+  post 'reports/awards' => 'reports#awards', as: :award_report
 
   resources :ref_pysicians
 
