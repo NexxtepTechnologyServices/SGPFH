@@ -1,4 +1,0 @@
-update v1.1
-- added 7 home page layouts
-- added 2 blog layouts
-- change hover picture mask color to black

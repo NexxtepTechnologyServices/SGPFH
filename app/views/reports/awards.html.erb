@@ -1,0 +1,70 @@
+<div id="awards-report">
+	<%= bootstrap_form_tag url: award_report_path do |f| %>
+	  <div class="form-inputs">
+	    <span class="award_types">
+	      <%= f.radio_button :award_type, "0", label: "All", checked: ((@t == "0") ? true : false) %>		
+	      <%= f.radio_button :award_type, "1", label: "Transporation", checked: ((@t == "1") ? true : false) %>
+	      <%= f.radio_button :award_type, "2", label: "Medication - Symptom Control Only", checked: ((@t == "2") ? true : false) %>
+	      <%= f.radio_button :award_type, "3", label: "Medical Equipment", checked: ((@t == "3") ? true : false) %>
+	      <%= f.radio_button :award_type, "4", label: "Nutritional Supplements", checked: ((@t == "4") ? true : false) %>
+	    </span>
+	  </div>
+	  <div class="form-inputs">
+		  <div class="col-sm-6">
+		  <%= f.text_field :start_date, label: "Start Date",value: @s, :class => 'datepicker',:readonly => 'readonly' %>
+		  </div>
+		  <div class="col-sm-6">
+		  <%= f.text_field :end_date, label: "End Date",value: @e, :class => 'datepicker',:readonly => 'readonly' %></div>
+		  
+	  </div>
+	  <div style="clear:both;"></div>
+	  <div class="form-inputs col-sm-6">
+	    <%= f.text_field :vendor, label: "Preferred Vendor", value: @v %>
+	  </div>
+	  <div style="clear:both;"></div>
+	  <div class="form-actions">
+	    <%= f.submit :submit %>
+	  </div>
+	  
+	<% end %>
+
+</div>
+<script>
+$(function(){
+        $( ".datepicker" ).datepicker({
+            dateFormat: "yy-mm-dd",
+            showOptions: { direction: "up" }
+            //changeYear: true,
+            //yearRange: "1930:2014" 
+        });
+});
+</script>
+<%#= link_to "Export to Excel", "#" %>
+<table class="table">
+<tr>
+	<th>Patient Name</th>
+	<th>Type</th>
+	<th>Total Requested</th>
+	<th>Total Granted</th>
+	<th>Date Of Service</th>
+	<th>Created On</th>
+</tr>
+<% @awards.each do |a| %>
+	<tr>
+		<td><%= a.patient.name %></td>
+		<td><%= a.award_type_text %></td>
+		<td><%= number_to_currency(a.total_requested) %></td>
+		<td><%= number_to_currency(a.total_granted) %></td>
+		<td><%= a.date_of_service.to_formatted_s(:ld) %></td>
+		<td><%= a.created_at.to_formatted_s(:ld) %></td>
+	</tr>
+<% end %>
+	<tr>
+		<td><strong>Totals:</strong></td>
+		<td><strong><%= "#{@awards.length} found"%></strong></td>
+		<td><strong><%= number_to_currency(@sum) %></strong></td>
+		<td><strong><%= number_to_currency(@sum) %></strong></td>
+		<td></td>
+		<td></td>
+	</tr>
+</table>

@@ -1,0 +1,79 @@
+<%= render :partial => 'default/program_nav', :locals => { :sections => [
+		#{link: 'patients', display: 'Patient Report'},
+		{link: 'awards', display: 'Award Report'}
+	] 
+} %>
+<!--<a name="patients"/>
+<div id="patients-report">
+	<%= bootstrap_form_tag url: patient_report_path do |f| %>
+	  	<div class="form-inputs">
+		  <%= f.text_field :start_date, label: "Start Date", :class => 'datepicker',:readonly => 'readonly' %>
+		  <%= f.text_field :end_date, label: "End Date", :class => 'datepicker',:readonly => 'readonly' %>
+		</div>
+
+	  <div class="form-actions">
+	    <%= f.submit :submit %>
+	  </div>
+	<% end %>
+</div>-->
+
+<a name="awards"/>
+<div id="awards-report">
+	<%= bootstrap_form_tag url: award_report_path do |f| %>
+	  <div class="form-inputs">
+	    <span class="award_types">
+	      <%= f.radio_button :award_type, "0", label: "All" %>		
+	      <%= f.radio_button :award_type, "1", label: "Transporation" %>
+	      <%= f.radio_button :award_type, "2", label: "Medication - Symptom Control Only" %>
+	      <%= f.radio_button :award_type, "3", label: "Medical Equipment" %>
+	      <%= f.radio_button :award_type, "4", label: "Nutritional Supplements" %>
+	    </span>
+	  </div>
+	  <div class="form-inputs">
+		  <div class="col-sm-6">
+		  <%= f.text_field :start_date, label: "Start Date", :class => 'datepicker',:readonly => 'readonly' %>
+		  </div>
+		  <div class="col-sm-6">
+		  <%= f.text_field :end_date, label: "End Date", :class => 'datepicker',:readonly => 'readonly' %></div>
+		  
+	  </div>
+	  <div style="clear:both;"></div>
+	  <div class="form-inputs col-sm-6">
+	    <%= f.text_field :vendor, label: "Preferred Vendor" %>
+	  </div>
+	  <div style="clear:both;"></div>
+	  <div class="form-actions">
+	    <%= f.submit :submit %>
+	  </div>
+	  
+	<% end %>
+
+</div>
+<script>
+$(function(){
+        $( ".datepicker" ).datepicker({
+            dateFormat: "yy-mm-dd",
+            showOptions: { direction: "up" }
+            //changeYear: true,
+            //yearRange: "1930:2014" 
+        });
+        $("#search_type_group button").click(function(){
+          var p = $(this).parent();
+          p.find("button").removeClass("btn-primary").addClass("btn-info");
+          $(this).addClass("btn-primary");
+          $("#search_type").val(this.dataset.value);
+          p.parent().find("input[type='submit']").click();
+        });
+        $(".paid_checkbox").change(function(){
+          var me = this;
+          $.get("/set_paid/"+$(me).data("type")+"/"+$(me).val(), null, function(data){
+            var p = $(me).parent();
+            //$(me).remove();
+            //$("<span/>", { html: "Paid"}).appendTo(p);
+            p.html("<strong>Paid</strong>");
+            p.parent().find("td.funds_status span.paid_status").removeClass('btn-danger').addClass('btn-success').html('Paid');
+          },"json");
+        });
+    });
+</script>
+
