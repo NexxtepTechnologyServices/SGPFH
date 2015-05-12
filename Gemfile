@@ -11,7 +11,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 gem 'bootstrap-sass'
 gem 'devise'
-gem 'axlsx'
+gem 'spreadsheet'
 group :production do
   gem 'mysql'
 end
