@@ -202,3 +202,7 @@ right: 20px;
 top: 10px;}
 .sub_card:after{clear:both;}
 .sub_award_card .body{}
+
+
+.download-link{ font-size: 17px;
+margin: 15px;}

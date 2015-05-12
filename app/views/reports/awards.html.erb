@@ -9,6 +9,7 @@
 	      <%= f.radio_button :award_type, "4", label: "Nutritional Supplements", checked: ((@t == "4") ? true : false) %>
 	    </span>
 	  </div>
+	  <div class="clearfix"></div>
 	  <div class="form-inputs">
 		  <div class="col-sm-6">
 		  <%= f.text_field :start_date, label: "Start Date",value: @s, :class => 'datepicker',:readonly => 'readonly' %>
@@ -24,6 +25,7 @@
 	  <div style="clear:both;"></div>
 	  <div class="form-actions">
 	    <%= f.submit :submit %>
+	    
 	  </div>
 	  
 	<% end %>
@@ -39,7 +41,14 @@ $(function(){
         });
 });
 </script>
-<%#= link_to "Export to Excel", "#" %>
+
+
+<hr/>
+	<p> <strong>Results: </strong></p>
+	    <a class="btn download-link" title="Export to Excel" href="<%= award_excel_path(s:@s, e:@e, v:@v, t:@t) %>">
+		<i class="icon-download"></i>
+</a>
+
 <table class="table">
 <tr>
 	<th>Patient Name</th>

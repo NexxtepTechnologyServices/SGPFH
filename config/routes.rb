@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   get 'reports/index' => 'reports#index', as: :reports
   post 'reports/patients' => 'reports#patients', as: :patient_report
   post 'reports/awards' => 'reports#awards', as: :award_report
+  get 'reports/awards/xlsx/:s/:e(/:t)(/:v)' => 'reports#awards_to_excel', as: :award_excel
+
 
   resources :ref_pysicians
 
