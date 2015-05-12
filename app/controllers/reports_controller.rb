@@ -37,7 +37,7 @@ class ReportsController < ApplicationController
     sheet = build_body( sheet, awards )
     s = StringIO.new
     b.write s
-    send_data s.string, :filename => "filename.xlsx", :type => "application/vnd.ms-excel"
+    send_data s.string, :filename => "Awards_report_#{DateTime.now.strftime('%Y-%d-%m')}.xls", :type => "application/vnd.ms-excel"
 
   end
 
