@@ -1,18 +1,17 @@
-<%= bootstrap_form_for(@device) do |f| %>
-  <div id="device_form" class="award_subtype_form">
+
+<%= bootstrap_form_for(@medication) do |f| %>
+  <div id="medication_form" class="award_subtype_form">
     <div class="form-inputs col-xs-12 ref_med_form">
       <%= f.hidden_field :award_id %>
       <%= f.text_field :name, :label => "Name" %>
-      <%= f.text_field :device_type, :label => "Type" %>
       <%= f.text_field :unit_cost, :label => "Unit $" %>
       <%= f.text_field :quantity, :label => "Qty.", :onblur => 'calcTotal(this)' %>
       <%= f.text_field :total_cost, :label => "Total", :class => "item_total_field" %>
       <%= f.hidden_field :ui_id, :value => 0 %>
     </div>
-
-    <div class="form-actions">
-      <%= f.submit "Update", :class => "btn btn-danger" %> <%= link_to "Cancel", :back %>
   </div>
+  <div class="form-actions">
+    <%= f.submit :submit %>
   </div>
 <% end %>
 
@@ -20,8 +19,9 @@
 sObj = new Array();
 function calcTotal(e){
   var p = $(e).parent().parent();
-  var price = parseFloat(p.find("#device_unit_cost").val());
-  var qty = parseInt(p.find("#device_quantity").val());
-  p.find("#device_total_cost").val((price * qty).toFixed(2));
+  var price = parseFloat(p.find("#medication_unit_cost").val());
+  var qty = parseInt(p.find("#medication_quantity").val());
+  p.find("#medication_total_cost").val((price * qty).toFixed(2));
+  var current_total = parseFloat($("#award_total_requested").val());
 }
   </script>

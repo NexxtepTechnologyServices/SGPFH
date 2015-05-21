@@ -41,8 +41,14 @@ class MedicationsController < ApplicationController
   # PATCH/PUT /medications/1.json
   def update
     respond_to do |format|
+      cTotal = @medication.total_cost
       if @medication.update(medication_params)
-        format.html { redirect_to @medication, notice: 'Medication was successfully updated.' }
+        t_diff = @medication.total_cost - cTotal
+        a = @medication.award
+        a.total_requested += t_diff
+        a.total_granted = a.total_requested
+        a.save
+        format.html { redirect_to @medication.award.patient, notice: 'Medication was successfully updated.' }
         format.json { render :show, status: :ok, location: @medication }
       else
         format.html { render :edit }

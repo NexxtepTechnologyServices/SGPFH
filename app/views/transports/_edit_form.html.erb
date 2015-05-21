@@ -1,0 +1,34 @@
+<%= bootstrap_form_for(@transport) do |f| %>
+  <%= hidden_field_tag "rate_holder", @milage_rate %>
+  <div id="transport_form" class="award_subtype_form">
+    <div class="form-inputs col-xs-12 ref_med_form">
+      <%#= f.hidden_field :award_id %>
+      <%= f.text_field :number_of_miles, :label => "Miles" %>
+      <%= f.text_field :cost_per_mile, :label => "$ / Mile", :value => @milage_rate %>
+      <%= f.text_field :number_trips, :label => "Trips", :onblur => 'newTransport(this)' %>
+      <div class="form-group">
+        <label for="total" class="control-label">Total</label>
+        <input type="text" id="total" class="form-control item_total_field"/>
+      </div>
+      <%= f.hidden_field :ui_id, :value => 0 %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit :submit %>
+  </div>
+<% end %>
+
+<script>
+sObj = new Array();
+function newTransport(e){
+    var p = $(e).parent().parent();
+    var data = {};
+    data.transport = {};
+    data.transport.number_of_miles = p.find("#transport_number_of_miles").val();
+    data.transport.cost_per_mile = p.find("#transport_cost_per_mile").val();
+    data.transport.number_trips = p.find("#transport_number_trips").val();
+
+    p.find("#total").val(((parseFloat(data.transport.number_of_miles) * parseFloat(data.transport.cost_per_mile)) * (data.transport.number_trips) * 2).toFixed(2));
+}
+  </script>

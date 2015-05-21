@@ -41,8 +41,14 @@ class TransportsController < ApplicationController
   # PATCH/PUT /transports/1.json
   def update
     respond_to do |format|
+      cTotal = @transport.total_cost
       if @transport.update(transport_params)
-        format.html { redirect_to @transport, notice: 'Transport was successfully updated.' }
+        t_diff = @transport.total_cost - cTotal
+        a = @transport.award
+        a.total_requested += t_diff
+        a.total_granted = a.total_requested
+        a.save
+        format.html { redirect_to @transport.award.patient, notice: 'Transport was successfully updated.' }
         format.json { render :show, status: :ok, location: @transport }
       else
         format.html { render :edit }
