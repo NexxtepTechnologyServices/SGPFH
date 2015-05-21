@@ -12,6 +12,9 @@ gem 'spring',        group: :development
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'spreadsheet'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+gem 'pdfkit'
 group :production do
   gem 'mysql'
 end

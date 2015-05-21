@@ -37,6 +37,21 @@ class PatientsController < ApplicationController
     end
     @isAdmin = (current_user.admin)
   end
+  def pdf_print
+    @patient = Patient.find(params[:id])
+    @awards = @patient.awards.where(award_type: params[:aType])
+    @awards = @awards.reject { |a| a.paid? }
+    if @awards.blank? 
+      redirect_to :back 
+      return
+    end
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render :pdf => "#{@awards.first.award_type_text}_#{DateTime.now}", :disposition => 'inline', :template => 'patients/pdf_print.pdf.erb', :layout => false
+      end
+    end
+  end
   # GET /patients/new
   def new
     @patient = Patient.new

@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<style>
+		.patient_information{font-size:10pt;font-family: monospace;}
+		.patient_name{font-family: 'Trebuchet MS';letter-spacing: 1px;text-transform: uppercase;}
+		</style>
+	</head>
+	<body>
+		<h3 class="patient_name"><%= @patient.name %></h3>
+		<div class="patient_information">
+		<div style="float:left;padding-right:10px;">
+		    <strong>Date of Birth:</strong> <%= @patient.birthday.to_formatted_s(:dob) %><br/>
+		    <strong>Advocate:</strong> <%= @patient.advocate_name %><br/>
+		    <strong>Advocate Email:</strong> <%= mail_to @patient.advocate_email %><br/>
+    	</div>
+    	<div sylte="float:right;">
+    		<strong>Address:</strong>
+    		<div>
+      			<%= @patient.address1 %><br/>
+      			<% if @patient.address2.present? %>
+        			<%= @patient.address2 %><br/>
+      			<% end %>
+      			<%= "#{@patient.city}, #{@patient.state}  #{@patient.zip}" %>
+    		</div>
+    		<br/>
+	    <strong>Home phone:</strong> <%= @patient.home_phone %><br/>
+	    <strong>Work phone:</strong> <%= @patient.work_phone %><br/>
+  		</div>
+  		<div style="clear:both;"></div>
+  		<br/><h5><%= @awards.first.award_type_text %> Awards</h5>
+  		<div>
+			<% @awards.each do |a| %>
+				<p>
+				<%= a.award_type_text %>
+				<%= a.total_granted %></p>
+				<p><%= render :partial => a.get_sub_partial_name, :locals => { :subs => a.get_sub_awards, :show_paid => false, :is_admin => false} %></p>
+			<% end %>
+		</div>
+	</body>
+</html>

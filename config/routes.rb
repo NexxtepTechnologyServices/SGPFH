@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   post "/patientlookup" => "patients#lookup"
   get "/patient/print/:id" => "patients#print", :as => :print_patient
   post "/patients/:id/inlineedit" => "patients#update"
+  get "/patients/:id/:aType" => 'patients#pdf_print', :as => :pdf_print
   
   resources :affiliates
   get "/affiliate/approval" => "affiliates#approval", :as => :affiliate_approval

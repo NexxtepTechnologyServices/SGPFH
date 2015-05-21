@@ -1,0 +1,14 @@
+<html>
+	<head></head>
+	<body>
+		<p>
+		<%= @patient.name %>
+		</p>
+			<% @awards.each do |a| %>
+				<p><%= a.get_sub_awards.length %>
+				<%= a.award_type_text %>
+				<%= a.total_granted %></p>
+				<p><%= render :partial => a.get_sub_partial_name, :locals => { :subs => a.get_sub_awards, :show_paid => false, :is_admin => false} %></p>
+			<% end %>
+	</body>
+</html>

@@ -43,7 +43,7 @@
 </ul>
 <div class="clearfix"></div>
 <% @awards.each do |key, at| %>
-<a name="<%= key %>"></a><h5 class="push-down"><%= at.first.award_type_text %></h5>
+<a name="<%= key %>"></a><h5 class="push-down"><%= at.first.award_type_text %><%= link_to "", pdf_print_path(id: @patient.id, aType: at.first.award_type, format: :pdf), {:class => "btn btn-primary glyphicon glyphicon-file pdf_link"} %></h5>
 <table class="table">
   <thead>
     <th></th>
