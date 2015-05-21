@@ -33,7 +33,7 @@
             <% status_class = (award.approved_by?(current_user.affiliate.id)) ? "btn-success" : "btn-danger" %>
             <span class='paid_status btn <%= status_class %>'><%= status_text %></span>
           </td>
-          <td style="vertical-align: middle;"><%= award.date_of_service.to_formatted_s(:ld) %></td>
+          <td style="vertical-align: middle;"><%= (award.date_of_service.present?) ? award.date_of_service.to_formatted_s(:ld) : "N/A" %></td>
           <td style="vertical-align: middle;"><%= award.patient.name %></td>
           <td style="vertical-align: middle;"><%= award.patient.diagnosis %></td>
           <td style="vertical-align: middle;"><%= "#{award.award_type_text} Award" %></td>
