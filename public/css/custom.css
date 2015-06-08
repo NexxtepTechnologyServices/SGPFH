@@ -44,9 +44,9 @@ z-index: 100;
   background: none repeat scroll 0 0 #263286;
 }
 .navbar-default .navbar-nav > li > a.active {
-  background: none repeat scroll 0 0 rgba(38,50,134,0.60);
+  /*background: none repeat scroll 0 0 rgba(38,50,134,0.60);
   border-bottom: 4px solid #E91A20;
-  color: #fff;
+  color: #fff;*/
 }
 .color1, .slice.color1, .bulle.color1, .ctaBox.color1 {
   background-color: rgba(128, 128, 128, 0.1);
@@ -71,8 +71,8 @@ section#internal-page{ float: none;
 .ref_med_form .form-group{display: inline-block;
 width: 10%;}
 .remove_row {bottom: 25px;
+display: inline-block;
 height: 24px;
-margin-left: 9px;
 position: absolute;}
 .ref_med_form input, .ref_med_form span{height: 30px;
 margin: 0;

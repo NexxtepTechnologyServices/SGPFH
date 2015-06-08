@@ -1,7 +1,6 @@
 class AwardsController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_award, only: [:show, :edit, :update, :destroy]
-
   # GET /awards
   # GET /awards.json
   def index
@@ -55,6 +54,7 @@ class AwardsController < ApplicationController
     @award = Award.new(award_params)
     respond_to do |format|
       if @award.save
+        AwardMailer.new_award_email(@award).deliver
         a_data = JSON.parse params[:json_string]
         a_data.each do |a|
           @item = get_new_award_item(@award, a)
@@ -212,6 +212,7 @@ class AwardsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def award_params
       params[:award][:total_granted] = params[:award][:total_requested]
+      params[:award][:date_of_service] = format_dates(params[:award][:date_of_service])
       params.require(:award).permit(:patient_id, :award_type, :total_requested, :total_granted, :description, :vendor, :date_of_service)
     end
 end
