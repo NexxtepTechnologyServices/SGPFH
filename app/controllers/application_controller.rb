@@ -5,13 +5,18 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_globals
 
+  def format_dates(d)
+      Rails.logger.info("before: #{d}")
+      p = d.split("/")
+      Rails.logger.info("after: #{p[2]}-#{p[0]}-#{p[1]}")  
+      "#{p[2]}-#{p[0]}-#{p[1]}"
+  end
+
   private
 
   def set_globals
   	@isHomepage = params[:controller] == 'default' && params[:action] == 'index'
-
-  	@milage_rate = 0.585
-  	
+  	@milage_rate = 0.10
   end
 
 end

@@ -234,9 +234,9 @@ ul.quickMenu li a:hover {color:#555;}
 .navbar-nav > li.sep:before{color:#eee;}
 
 .navbar-default .navbar-nav > li > a.active {
-	color:#fff;
+	/*color:#fff;
 	background:#3272a8;
-	border-bottom: 4px solid #2c6493
+	border-bottom: 4px solid #2c6493*/
 }
 
 .navbar-nav ul li a {color:#999;}

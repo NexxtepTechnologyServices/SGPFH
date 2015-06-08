@@ -12,7 +12,7 @@
         <%= f.text_field :last_name %>
         <% end %>
         <%= f.form_group :class => "col-md-3" do %>
-        <%= f.date_field :birthday, :onchange => "lookUpPatient()",:class => "datepicker",:readonly => "readonly"  %>
+        <%= f.text_field :birthday, :onchange => "lookUpPatient()",:class => "datepicker",:readonly => "readonly"  %>
         <% end %>
     </div>
     <div class="clearfix divider" id="patient_found_notification"></div>
