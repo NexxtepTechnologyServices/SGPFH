@@ -9,10 +9,10 @@ class PatientsController < ApplicationController
     end
     if params[:query].present?
       @patients = Patient.search(params[:query], load: true)
+      @patients = @patients.sort_by { |p| p.last_name }
     else
       @patients = Patient.order(created_at: :desc)
     end
-      @patients = @patients.sort_by { |p| p.last_name }
   end
 
   # GET /patients/1

@@ -12,7 +12,8 @@
         <%= f.text_field :last_name %>
         <% end %>
         <%= f.form_group :class => "col-md-3" do %>
-        <%= f.text_field :birthday, :onchange => "lookUpPatient()",:class => "datepicker",:readonly => "readonly"  %>
+        <%= f.text_field :birthday, :onchange => "lookUpPatient()",:class => "datepicker_f",:readonly => "readonly"  %>
+        <% end %>
     </div>
     <div class="clearfix divider" id="patient_found_notification"></div>
     <%= f.form_group :class => "col-md-12" do %>
@@ -64,15 +65,22 @@
   </div>
 <% end %>
 
-
 <script>
     $(function(){
-        $( ".datepicker" ).datepicker({
+        $( ".datepicker_f" ).datepicker({
             dateFormat: "yyyy-mm-dd",
             changeYear: true,
-            yearRange: "1930:2014" 
+            yearRange: "1930:2014",
+            autoclose: true,
+            startView: 2,
+            defaultViewDate: {
+                year: 1970,
+                month: 1,
+                day: 1
+            }
         });
     });
+    
   function lookUpPatient(){
     var p = $('#lookup-data');
     var data = {};

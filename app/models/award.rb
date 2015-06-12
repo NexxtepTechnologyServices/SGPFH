@@ -6,7 +6,9 @@ class Award < ActiveRecord::Base
 	has_many :devices, dependent: :destroy
 	has_many :approvals
 	has_many :affiliates, through: :approvals
-	after_save :update_patient_total
+	has_many :comments, dependent: :destroy
+
+	before_save :update_patient_total
 	#validate_presence_of :award_type, :total_requested
 
 	def award_type_text
@@ -81,12 +83,19 @@ class Award < ActiveRecord::Base
 
 	def update_patient_total
 		p = self.patient
-		puts p.lifetime_total
-		if total_requested.present?
-			p.lifetime_total = p.lifetime_total + total_requested 
-		else
-			p.lifetime_total = total_requested
+		logger.info p.lifetime_total
+		logger.info "#{total_requested} - #{total_granted}"
+		d = total_granted - total_requested
+		logger.info d
+		if d != 0
+			logger.info "d not 0"
+			total_requested = total_granted
+			p.lifetime_total += d
+		else	
+			logger.info "d is 0"
+			p.lifetime_total = p.lifetime_total + total_granted 
 		end
+		logger.info p.lifetime_total
 		p.save
 	end
 end

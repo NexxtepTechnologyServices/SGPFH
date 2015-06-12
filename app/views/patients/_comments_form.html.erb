@@ -1,0 +1,33 @@
+<tr>
+	<td colspan="8">
+	<% if award.comments.blank? %>
+		<div class="col-xs-12">No Comments for this award</div>
+	<% else %>
+		<h3>Comments</h3>
+		<% award.comments.each do |c| %>
+			<div class="col-xs-12">
+				<%= c.content %>
+			</div>
+			<div class="col-xs-4 pull-right">
+				By <%= (c.user.name.blank?) ? "Anonymous User" : c.user.name %> on <%= c.created_at.to_formatted_s(:dob) %>
+			</div>
+		<% end %>
+	<% end %>
+	</td>
+</tr>
+<tr>
+	<td colspan="8">
+			<%= bootstrap_form_tag url: "/awards/#{award.id}/create_comment" do |f| %>
+	  			<div class="col-xs-10">
+	  				<%= f.text_area :content, label: "" %>
+	  			</div>
+	  			<div class="col-xs-2">
+	  				<%#= f.submit :class => "col-xs-2" %>
+	  				<button type="submit" name="commit" class="btn btn-primary" style="margin-top: 25px;">
+	  					<span class=""><i class="icon-plus-circled"></i></span>
+						<span class="submit-text" style="font-size: 10px;">Add Comment</span>
+	  				</button>
+	  			</div>
+			<% end %>
+	</td>
+</tr>

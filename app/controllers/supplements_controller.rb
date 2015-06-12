@@ -60,9 +60,10 @@ class SupplementsController < ApplicationController
   # DELETE /supplements/1
   # DELETE /supplements/1.json
   def destroy
+    p = @supplement.award.patient
     @supplement.destroy
     respond_to do |format|
-      format.html { redirect_to supplements_url, notice: 'Supplement was successfully destroyed.' }
+      format.html { redirect_to patient_url(p), notice: 'Supplement was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

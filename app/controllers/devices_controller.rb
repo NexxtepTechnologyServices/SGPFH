@@ -60,9 +60,10 @@ class DevicesController < ApplicationController
   # DELETE /devices/1
   # DELETE /devices/1.json
   def destroy
+    p = @device.award.patient
     @device.destroy
     respond_to do |format|
-      format.html { redirect_to devices_url, notice: 'Device was successfully destroyed.' }
+      format.html { redirect_to patient_url(p), notice: 'Device was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

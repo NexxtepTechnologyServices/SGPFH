@@ -1,5 +1,10 @@
 class Transport < ActiveRecord::Base
+	include AwardsHelper
+
 	belongs_to :award
+
+
+	after_destroy :destroy_updates
 
 	def name
 		"#{number_trips} x #{number_of_miles} trips"
@@ -21,6 +26,10 @@ class Transport < ActiveRecord::Base
 		self.number_trips = data['transport']['number_trips']
 	end
 
+	def destroy_updates
+		update_patient_totals(self)
+		remove_award_if_empty(self)
+	end
 end
 
 

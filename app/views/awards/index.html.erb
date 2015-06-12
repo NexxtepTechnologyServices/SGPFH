@@ -4,8 +4,8 @@
 <h1>Payments</h1>
 <form>
   <%= select_tag "query", options_for_select(@vendors, @query), :style => "height:30px;" %>
-  <%= text_field_tag "start_date", @display_start_date, {:class => "datepicker", :placeholder => "Start Date"} %>
-  <%= text_field_tag "end_date", @display_end_date, {:class => "datepicker", :placeholder => "End Date"} %>
+  <%= text_field_tag "start_date", @display_start_date, {:class => "datepicker_field", :placeholder => "Start Date"} %>
+  <%= text_field_tag "end_date", @display_end_date, {:class => "datepicker_field", :placeholder => "End Date"} %>
   <input type="submit" class="btn btn-primary" value="Search">
   <%= link_to "Clear", awards_path, :class => "btn btn-warning" %>
   <div id="search_type_group" class="btn-group pull-right">
@@ -63,11 +63,10 @@
 <% end %>
 <script>
 $(function(){
-        $( ".datepicker" ).datepicker({
+        $( ".datepicker_field" ).datepicker({
             dateFormat: "yy-mm-dd",
-            showOptions: { direction: "down" }
-            //changeYear: true,
-            //yearRange: "1930:2014" 
+            showOptions: { direction: "down" },
+            autoclose: true
         });
         $("#search_type_group button").click(function(){
           var p = $(this).parent();

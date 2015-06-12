@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   get "/approve/:award/:hash" => "awards#approve_email", :as => :approve_email
   post "/awards/:id/approve_admin" => "awards#approve_admin", :as => :approve_admin
   get "/awards/:award/approve_login/" => "awards#approve_login", :as => :approve_login
+  post "/awards/:id/create_comment" => "awards#create_comment", :as => :create_comment
 
   resources :patients
   post "/patientlookup" => "patients#lookup"

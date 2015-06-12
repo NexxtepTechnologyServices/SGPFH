@@ -19,7 +19,7 @@
     <% unless sub.paid? %>
       <td class="sub_award">
           <a href="<%= "/#{sub.class.name.downcase.pluralize}/#{sub.id}/edit" %>" title="Edit" class="edit_award" data-value="<%= sub.id %>"><i class="icon-edit"></i></a>  
-          <a href="#" title="Remove Award" class="remove_award" data-value="<%= sub.id %>"><i class="icon-cancel-circled"></i></a>
+          <a rel="nofollow" href="<%= "/supplements/#{sub.id}"%>" data-method="delete" data-confirm="Are you sure?"><i class="icon-cancel-circled"></i></a></a>
       </td>
     <% end %><% end %>
       </tr>

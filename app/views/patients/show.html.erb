@@ -81,6 +81,7 @@
         </td>
       </tr>
       <%= render :partial => a.get_sub_partial_name, :locals => { :subs => a.get_sub_awards, :show_paid => true, :is_admin => true} %>
+      <%= render :partial => 'comments_form', :locals => {:award => a} %>
       <%= render :partial => 'approvals_list', :locals => { :award => a } %>
     <% end %>
   </tbody>

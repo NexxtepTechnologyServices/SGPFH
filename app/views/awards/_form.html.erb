@@ -12,7 +12,7 @@
     <div id="award_type_div"></div>
     <div style="clear:both;"></div>
     <%#= f.text_area :description %>
-    <%= f.text_field :date_of_service, label: "Date Of Service", :class => 'datepicker',:readonly => 'readonly' %>
+    <%= f.text_field :date_of_service, label: "Date Of Service", :class => 'datepicker_f',:readonly => 'readonly' %>
     <%= f.text_field :vendor, label: "Preferred Vendor" %>
     <%= f.text_field :total_requested, :value => 0.0 %>
     <%#= f.text_field :total_granted %>
@@ -26,7 +26,10 @@
 
 <script>
   $(document).ready(function(){
-    $( ".datepicker" ).datepicker({dateFormat: "yy-mm-dd"});
+    $( ".datepicker_f" ).datepicker({
+      dateFormat: "yy-mm-dd",
+      autoclose: true
+    });
     $("#award_type_div").on("blur", ".item_total_field", updateTotal);
   });
   function updateTotal(){

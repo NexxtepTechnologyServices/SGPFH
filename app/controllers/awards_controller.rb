@@ -54,12 +54,11 @@ class AwardsController < ApplicationController
     @award = Award.new(award_params)
     respond_to do |format|
       if @award.save
-        AwardMailer.new_award_email(@award).deliver
         a_data = JSON.parse params[:json_string]
         a_data.each do |a|
           @item = get_new_award_item(@award, a)
         end
-        #AwardMailer.new_award_email(@award).deliver
+        AwardMailer.new_award_email(@award).deliver
         if current_user.admin
           format.html { redirect_to patient_path(@award.patient), notice: 'Award was successfully created.' }
         else
@@ -91,13 +90,24 @@ class AwardsController < ApplicationController
   # DELETE /awards/1.json
   def destroy
     p = @award.patient
-    p.lifetime_total = p.lifetime_total - @award.total_granted
-    p.save
     @award.destroy
+    p.reload
     respond_to do |format|
       format.html { redirect_to awards_url, notice: 'Award was successfully destroyed.' }
       format.json { render json: {:award => @award, :lifetime => p.lifetime_total, :year => p.funds_this_year, :quarter => p.funds_this_quarter } }
     end
+  end
+
+  def create_comment
+    award = Award.find(params[:id])
+    comment = Comment.new
+    comment.content = params[:content]
+    comment.user = current_user
+    comment.award = award
+    if comment.save
+      redirect_to patient_url(award.patient), notice: 'Comment added to the award'
+    end
+
   end
 
   def get_award_form

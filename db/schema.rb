@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150305180316) do
+ActiveRecord::Schema.define(version: 20150612170900) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -37,8 +40,8 @@ ActiveRecord::Schema.define(version: 20150305180316) do
     t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -66,8 +69,8 @@ ActiveRecord::Schema.define(version: 20150305180316) do
   create_table "awards", force: true do |t|
     t.integer  "patient_id"
     t.integer  "award_type"
-    t.float    "total_requested", limit: 24
-    t.float    "total_granted",   limit: 24
+    t.float    "total_requested"
+    t.float    "total_granted"
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -84,13 +87,21 @@ ActiveRecord::Schema.define(version: 20150305180316) do
     t.datetime "updated_at"
   end
 
+  create_table "comments", force: true do |t|
+    t.text     "content"
+    t.integer  "award_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "devices", force: true do |t|
     t.integer  "award_id"
     t.string   "name"
     t.string   "device_type"
-    t.float    "unit_cost",   limit: 24
+    t.float    "unit_cost"
     t.integer  "quantity"
-    t.float    "total_cost",  limit: 24
+    t.float    "total_cost"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "paid"
@@ -100,9 +111,9 @@ ActiveRecord::Schema.define(version: 20150305180316) do
     t.integer  "award_id"
     t.string   "id_number"
     t.string   "name"
-    t.float    "unit_cost",  limit: 24
+    t.float    "unit_cost"
     t.integer  "quantity"
-    t.float    "total_cost", limit: 24
+    t.float    "total_cost"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "paid"
@@ -131,9 +142,9 @@ ActiveRecord::Schema.define(version: 20150305180316) do
     t.string   "work_phone"
     t.string   "diagnosis"
     t.integer  "diagnosis_confirmed"
-    t.float    "lifetime_total",      limit: 24
-    t.float    "year_total",          limit: 24
-    t.float    "quarter_total",       limit: 24
+    t.float    "lifetime_total"
+    t.float    "year_total"
+    t.float    "quarter_total"
     t.integer  "low_income"
     t.string   "income_sources"
     t.string   "advocate_firstname"
@@ -153,7 +164,7 @@ ActiveRecord::Schema.define(version: 20150305180316) do
     t.string   "drug"
     t.string   "icd9"
     t.string   "diagnosis"
-    t.float    "doscage",     limit: 24
+    t.float    "doscage"
     t.string   "sig"
     t.string   "dispense"
     t.string   "refills"
@@ -190,7 +201,7 @@ ActiveRecord::Schema.define(version: 20150305180316) do
     t.string   "employed"
     t.integer  "citizen"
     t.integer  "household_size"
-    t.float    "income",                 limit: 24
+    t.float    "income"
     t.string   "income_sources"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -214,9 +225,9 @@ ActiveRecord::Schema.define(version: 20150305180316) do
   create_table "supplements", force: true do |t|
     t.integer  "award_id"
     t.string   "name"
-    t.float    "unit_cost",  limit: 24
+    t.float    "unit_cost"
     t.integer  "quantity"
-    t.float    "total_cost", limit: 24
+    t.float    "total_cost"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "paid"
@@ -241,8 +252,8 @@ ActiveRecord::Schema.define(version: 20150305180316) do
     t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
