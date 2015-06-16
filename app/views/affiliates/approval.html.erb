@@ -28,7 +28,7 @@
     <% @awards.each do |award| %>
       <% if !@unpaid || !award.approved_by?(current_user.affiliate.id) %>
         <tr>
-          <td class="funds_status">
+          <td class="funds_status" rowspan="<%= award.get_sub_awards.count + 1 %>">
             <% status_text = (award.approved_by?(current_user.affiliate.id)) ? "Approved" : "Unapproved" %>
             <% status_class = (award.approved_by?(current_user.affiliate.id)) ? "btn-success" : "btn-danger" %>
             <span class='paid_status btn <%= status_class %>'><%= status_text %></span>

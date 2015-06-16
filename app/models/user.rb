@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
 	validates :name, :email, presence: true
 	validates :password, :password_confirmation, presence: true, on: :create
 	validates :password, confirmation: true
+
+	scope :admins, -> { where(role: :administrator) }
 	def set_default_role
 		self.role ||= :"case worker"
 	end

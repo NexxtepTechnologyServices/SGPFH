@@ -1,5 +1,5 @@
-<% unless award.approvals.empty? %>
-	<% award.approvals.each_with_index do |a, i| %>
+<% unless award.approvals.approved.empty? %>
+	<% award.approvals.approved.each_with_index do |a, i| %>
 	<tr style="<%= "border-top:1px solid #ddd;" if i == 0 %>" >
 		<td class="sub_award"></td>
 		<td class="sub_award"><%= "<strong>Approved By:</stong> ".html_safe if i == 0 %></td>

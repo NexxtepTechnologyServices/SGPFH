@@ -10,6 +10,7 @@ class Award < ActiveRecord::Base
 
 	before_save :update_patient_total
 	#validate_presence_of :award_type, :total_requested
+	after_create :create_approvals
 
 	def award_type_text
 		t = ""
@@ -52,19 +53,33 @@ class Award < ActiveRecord::Base
 	end
 
 	def approved?
-		affs = Affiliate.where(get_email: true)
-		a1 = affs.map { |a| a.id }
-		approved_affs = self.affiliates
-		a2 = approved_affs.map { |a| a.id }
-		(affs.sort == approved_affs.sort)
+		a = self.approvals.reject { |ap| !ap.approval_method.nil?}
+		a.empty?
+		#affs = Affiliate.where(get_email: true)
+		#a1 = affs.map { |a| a.id }
+		#approved_affs = self.affiliates
+		#a2 = approved_affs.map { |a| a.id }
+		#(affs.sort == approved_affs.sort)
 	end
 
 	def approved_by?(affiliate)
-		aa = self.affiliates.map { |a| a.id }
-		aa.include?(affiliate)
+		aa = approvals.where(affiliate_id: affiliate).first
+		return false if aa.blank?
+		!aa.approval_method.nil?
 	end
 
 	private
+
+	def create_approvals
+		affiliates = Affiliate.where(:get_email => true)
+		affiliates.each do |a|
+			approval = Approval.new
+			approval.award = self
+			approval.affiliate = a
+			approval.approval_method = nil
+			approval.save
+		end
+	end
 
 	def get_type_table
 		t = ""

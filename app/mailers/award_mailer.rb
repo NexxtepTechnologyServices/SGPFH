@@ -3,17 +3,24 @@ class AwardMailer < ActionMailer::Base
 
   def new_award_email(award)
   	@award = award
-  	get_approval_emails.each do |r|
+  	award.affiliates.each do |r|
   		@hash = r.slug
   		mail(to: r.email, subject: "New Award Created")	
   	end
   end
 
-  private
-
-  def get_approval_emails
-  	affiliates = Affiliate.where(:get_email => true)
-  	affiliates
+  def approval_request(award)
+    to = award.affiliates.map { |a| { email: a.email, name: a.name } }
+    template_name = "approval-request"
+    message = {
+      to: to,
+      subject: "Award for #{award.patient.name}",
+      global_merge_vars: [
+        { name: 'NAME', content: award.patient.name },
+        { name: 'LINK', content: 'http://sgpfh.org/users/sign_in' }
+      ]
+    }
+    MANDRILL.messages.send_template template_name, [], message
   end
 
 end

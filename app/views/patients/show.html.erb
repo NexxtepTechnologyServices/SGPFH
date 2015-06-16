@@ -58,7 +58,7 @@
   <tbody>
     <% at.each do |a| %>
       <tr id="<%= a.id %>" class="award_<%= a.id %>">
-        <td class="funds_status" rowspan="2">
+        <td class="funds_status" rowspan="<%= a.get_sub_awards.count + 1 %>">
           <% status_text = (a.paid?) ? "Paid" : "Unpaid" %>
           <% status_class = (a.paid?) ? "btn-success" : "btn-danger" %>
           <span class='paid_status btn <%= status_class %>'><%= status_text %></span>

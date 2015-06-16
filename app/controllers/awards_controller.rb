@@ -58,7 +58,7 @@ class AwardsController < ApplicationController
         a_data.each do |a|
           @item = get_new_award_item(@award, a)
         end
-        AwardMailer.new_award_email(@award).deliver
+        AwardMailer.approval_request(@award)
         if current_user.admin
           format.html { redirect_to patient_path(@award.patient), notice: 'Award was successfully created.' }
         else
@@ -160,10 +160,9 @@ class AwardsController < ApplicationController
   def approve_email()
     affiliate = Affiliate.find_by(slug: params[:hash])
     award = Award.find(params[:award])
-    approval = Approval.new
-    approval.award = award
-    approval.affiliate = affiliate
-    approval.approval_method = "email"
+    app = award.approvals.where(affiliate_id: affiliate.id)
+    app.approval_method = "email"
+    app.save
     approval.save
     render :json => { "status" => "Approved" }
   end
@@ -171,32 +170,20 @@ class AwardsController < ApplicationController
   def approve_login()
     affiliate = current_user.affiliate
     award = Award.find(params[:award])
-    approval = Approval.new
-    approval.award = award
-    approval.affiliate = affiliate
-    approval.approval_method = "login"
-    approval.save
+    app = award.approvals.where(affiliate_id: current_user.affiliate.id)
+    app.approval_method = "login"
+    app.save
     render :json => { "status" => "Approved" }
   end
 
   def approve_admin()
     award = Award.find(params[:id])
-    affiliates = Affiliate.where(:get_email => true)
-    affiliates.each do |a|
-      approval = Approval.new
-      approval.award = award
-      approval.affiliate = a
-      approval.approval_method = "admin"
-      begin
-        approval.save
-      rescue ActiveRecord::RecordNotUnique => e
-        continue
-      end
-    end
+    award.approvals.each { |a| a.approval_method = "admin"; a.save; }
     render :json => { "status" => "Approved" }
   end
 
   private
+
     def get_new_award_item(award, data)
       case @award.award_type
         when 1

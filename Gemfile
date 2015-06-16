@@ -26,6 +26,7 @@ gem 'active_admin_editor'
 gem 'rmagick'
 gem 'therubyracer'
 gem 'mysql'
+gem 'mandrill-api', require: 'mandrill'
 group :development do
   gem 'pg'
   gem 'better_errors'

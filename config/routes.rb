@@ -53,6 +53,7 @@ Rails.application.routes.draw do
   get "/affiliate/approval" => "affiliates#approval", :as => :affiliate_approval
   devise_for :users
   resources :users
+  post '/contact_send' => 'default#contact_us', :as => :contact_us
 
   resources :blog_posts
 
