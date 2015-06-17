@@ -6,10 +6,11 @@ class ApplicationController < ActionController::Base
   before_filter :set_globals
 
   def format_dates(d)
-      Rails.logger.info("before: #{d}")
-      p = d.split("/")
-      Rails.logger.info("after: #{p[2]}-#{p[0]}-#{p[1]}")  
-      "#{p[2]}-#{p[0]}-#{p[1]}"
+      #Rails.logger.info("before: #{d}")
+      #p = d.split("/")
+      #Rails.logger.info("after: #{p[2]}-#{p[0]}-#{p[1]}")  
+      #{}"#{p[2]}-#{p[0]}-#{p[1]}"
+      d
   end
 
   private

@@ -4,7 +4,7 @@ class Award < ActiveRecord::Base
 	has_many :medications, dependent: :destroy
 	has_many :supplements, dependent: :destroy
 	has_many :devices, dependent: :destroy
-	has_many :approvals
+	has_many :approvals, dependent: :destroy
 	has_many :affiliates, through: :approvals
 	has_many :comments, dependent: :destroy
 
