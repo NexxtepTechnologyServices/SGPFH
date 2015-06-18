@@ -4,10 +4,6 @@
 <h1>Awards for Approval By You</h1>
 <form>
   <input style="display:none;" type="submit" class="btn btn-primary" value="Search">
-  <div id="search_type_group" class="btn-group pull-right">
-    <button type="button" class="btn btn-info<%= " btn-primary" if @unpaid %>" data-value="unpaid">Show Unapproved</button>
-    <button type="button" class="btn btn-info<%= " btn-primary" if !@unpaid %>" data-value="all">Show All</button>
-  </div>
   <input id="search_type" type="hidden" name="search_type" value="unpaid"/>
 </form>
 <% if @awards.present? %>

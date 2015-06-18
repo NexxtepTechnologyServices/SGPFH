@@ -170,7 +170,7 @@ class AwardsController < ApplicationController
   def approve_login()
     affiliate = current_user.affiliate
     award = Award.find(params[:award])
-    app = award.approvals.where(affiliate_id: current_user.affiliate.id)
+    app = award.approvals.where(affiliate_id: current_user.affiliate.id).first
     app.approval_method = "login"
     app.save
     render :json => { "status" => "Approved" }
@@ -178,7 +178,12 @@ class AwardsController < ApplicationController
 
   def approve_admin()
     award = Award.find(params[:id])
-    award.approvals.each { |a| a.approval_method = "admin"; a.save; }
+    award.approvals.each do |a|
+      if a.approval_method.nil?
+        a.approval_method = "admin"
+        a.save
+      end
+    end
     render :json => { "status" => "Approved" }
   end
 
