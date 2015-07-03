@@ -49,7 +49,7 @@ class Award < ActiveRecord::Base
 	end
 
 	def paid?
-		funds_remaining == 0
+		funds_remaining.round(2) == 0.00
 	end
 
 	def approved?
