@@ -11,7 +11,7 @@ class PatientsController < ApplicationController
       @patients = Patient.search(params[:query], load: true)
       @patients = @patients.sort_by { |p| p.last_name }
     else
-      @patients = Patient.order(last_name: :desc)
+      @patients = Patient.order(last_name: :asc)
     end
   end
 
