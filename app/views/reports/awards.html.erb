@@ -51,6 +51,7 @@ $(function(){
 
 <table class="table">
 <tr>
+	<th>Paid</th>
 	<th>Patient Name</th>
 	<th>Type</th>
 	<th>Total Requested</th>
@@ -60,6 +61,7 @@ $(function(){
 </tr>
 <% @awards.each do |a| %>
 	<tr>
+		<td><%= (a.paid?) ? "Yes" : "No" %></td>
 		<td><%= a.patient.name %></td>
 		<td><%= a.award_type_text %></td>
 		<td><%= number_to_currency(a.total_requested) %></td>

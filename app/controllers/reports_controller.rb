@@ -61,7 +61,8 @@ class ReportsController < ApplicationController
         "Total Requested",
         "Total Granted",
         "Date Of Service",
-        "Created On"
+        "Created On",
+        "Paid"
       ]
       h_format = Spreadsheet::Format.new :color => :black, :weight => 'bold'
       sheet.row(0).replace h
@@ -75,7 +76,8 @@ class ReportsController < ApplicationController
             a.total_requested.round(2),
             a.total_granted.round(2),
             a.date_of_service.to_formatted_s(:ld),
-            a.created_at.to_formatted_s(:ld)
+            a.created_at.to_formatted_s(:ld),
+            a.paid?
         ]
         r.replace d
         i += 1
