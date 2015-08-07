@@ -72,8 +72,8 @@ class ReportsController < ApplicationController
         d = [
             a.patient.name,
             a.award_type_text,
-            a.total_requested,
-            a.total_granted,
+            a.total_requested.round(2),
+            a.total_granted.round(2),
             a.date_of_service.to_formatted_s(:ld),
             a.created_at.to_formatted_s(:ld)
         ]
