@@ -31,8 +31,12 @@
   		<div>
 			<% @awards.each do |a| %>
 				<p>
-				<%= a.award_type_text %>
-				<%= a.total_granted %></p>
+				<%= a.award_type_text %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<%= number_to_currency(a.total_granted) %>
+				<% if a.paid? %>
+					&nbsp;&nbsp;&nbsp;<strong>Paid in Full</strong>
+				<% end %>
+				</p>
 				<p><%= render :partial => a.get_sub_partial_name, :locals => { :subs => a.get_sub_awards, :show_paid => false, :is_admin => false} %></p>
 			<% end %>
 		</div>
