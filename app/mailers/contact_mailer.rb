@@ -1,4 +1,4 @@
-class ContanctMailer < ActiveMailer::Base
+class ContanctMailer < ActionMailer::Base
 
 	def send_contact_info(contact)
 		to = [{ email: contact[:email], name: contact[:name] }]
