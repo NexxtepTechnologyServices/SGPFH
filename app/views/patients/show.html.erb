@@ -67,7 +67,7 @@
           <span class='approved_status btn <%= approval_class %>'><%= approval_text %></span>
         </td>
         <td><%= a.award_type_text %></td>
-        <td><%= a.date_of_service.to_formatted_s(:ld) %></td>
+        <td><%= a.date_of_service.to_formatted_s(:ld) if a.date_of_service %></td>
         <td><%= a.vendor %></td>
         <td><%= number_to_currency(a.total_granted) %></td>
         <td class="funds_used"><%= number_to_currency(a.funds_used) %></td>

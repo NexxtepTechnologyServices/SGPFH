@@ -20,7 +20,7 @@ class PatientsController < ApplicationController
   def show
     session[:patient] = @patient.id
     @awards = Hash.new
-    @patient.awards.each do |a|
+    @patient.awards.order('created_at desc').each do |a|
       @awards[a.award_type] = Array.new unless @awards.has_key?(a.award_type)
       @awards[a.award_type] << a
     end

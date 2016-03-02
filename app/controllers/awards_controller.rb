@@ -56,7 +56,7 @@ class AwardsController < ApplicationController
       if @award.save
         a_data = JSON.parse params[:json_string]
         a_data.each do |a|
-          @item = get_new_award_item(@award, a)
+          @item = get_new_award_item(@award, a) unless a.nil?
         end
         AwardMailer.approval_request(@award)
         if current_user.admin
@@ -213,6 +213,8 @@ class AwardsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def award_params
+      Rails.logger.info params[:award][:total_requested]
+      params[:award][:total_requested] = params[:award][:total_requested].to_f
       params[:award][:total_granted] = params[:award][:total_requested]
       params[:award][:date_of_service] = format_dates(params[:award][:date_of_service])
       params.require(:award).permit(:patient_id, :award_type, :total_requested, :total_granted, :description, :vendor, :date_of_service)

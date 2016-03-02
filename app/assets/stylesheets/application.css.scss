@@ -10,8 +10,19 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
  *= require_self
  *= require bootstrap-datepicker3
  *= require active_admin/editor/wysiwyg
+ *= require awards
+ *= require devices
+ *= require framework_and_overrides
+ *= require medications
+ *= require notes
+ *= require patients
+ *= require ref_insurances
+ *= require ref_meds
+ *= require ref_pysicians
+ *= require referrals
+ *= require supplements
+ *= require transports
  */

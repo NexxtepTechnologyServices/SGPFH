@@ -11,7 +11,7 @@ class Transport < ActiveRecord::Base
 	end
 
 	def total_cost
-		(number_of_miles * cost_per_mile) * (number_trips * 2)
+		((number_of_miles * cost_per_mile) * (number_trips * 2)).round(2)
 	end
 
 	def quantity

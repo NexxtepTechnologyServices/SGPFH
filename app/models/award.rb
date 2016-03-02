@@ -33,11 +33,11 @@ class Award < ActiveRecord::Base
 		get_type_table.each do |t|
 			fu = fu + t.total_cost if t.paid?
 		end
-		fu
+		fu.to_f
 	end
 
 	def funds_remaining
-		total_granted - funds_used
+		(total_granted.to_f - funds_used).to_f
 	end
 
 	def get_sub_awards
@@ -49,7 +49,7 @@ class Award < ActiveRecord::Base
 	end
 
 	def paid?
-		funds_remaining.round(2) == 0.00
+		funds_remaining.round(2) == 0.00 || get_sub_awards.map { |x| x unless x.paid }.compact.empty?
 	end
 
 	def approved?
