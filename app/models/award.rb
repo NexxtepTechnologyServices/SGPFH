@@ -31,6 +31,7 @@ class Award < ActiveRecord::Base
 		fu = 0.0
 		fu and return if award_type.nil?
 		get_type_table.each do |t|
+			# Rails.logger.info "+++++++++++++ #{t.id}  #{t.class.name}================"
 			fu = fu + t.total_cost if t.paid?
 		end
 		fu.to_f

@@ -21,9 +21,9 @@ class Transport < ActiveRecord::Base
 	def make(award,data)
 		self.award_id = award.id
 		#id_number = data.medication.id_number
-		self.number_of_miles = data['transport']['number_of_miles']
-		self.cost_per_mile = data['transport']['cost_per_mile']
-		self.number_trips = data['transport']['number_trips']
+		self.number_of_miles = data['transport']['number_of_miles'].empty? ? 0 : data['transport']['number_of_miles']
+		self.cost_per_mile = data['transport']['cost_per_mile'].empty? ? 0 : data['transport']['cost_per_mile']
+		self.number_trips = data['transport']['number_trips'].empty? ? 0 : data['transport']['number_trips']
 	end
 
 	def destroy_updates

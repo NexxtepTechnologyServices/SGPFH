@@ -11,7 +11,8 @@ class PatientsController < ApplicationController
       @patients = Patient.search(params[:query], load: true)
       @patients = @patients.sort_by { |p| p.last_name }
     else
-      @patients = Patient.order(last_name: :asc)
+      @patients = Patient.includes(awards: [:medications, :transports, :devices, :supplements, :approvals]).order(last_name: :asc)
+      # @patients = Patient.order(last_name: :asc).limit(20)
     end
   end
 
